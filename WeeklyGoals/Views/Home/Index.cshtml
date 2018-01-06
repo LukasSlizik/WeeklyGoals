@@ -1,0 +1,112 @@
+﻿@model MainViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+<h2>Index</h2>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Select" asp-controller="Home">
+            <div>
+                @Html.DropDownListFor(m => m.SelectedWeek, Model.Weeks, "Select Week")
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Set" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="demo1" style="background-color:aqua">
+</div>
+
+<div id="demo2" style="background-color:yellow">
+</div>
+
+<p>
+    <a asp-controller="Goals" asp-action="Create">Create New</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayName("One")
+            </th>
+            <th>
+                @Html.DisplayName("Two")
+            </th>
+            <th>
+                @Html.DisplayName("Three")
+            </th>
+            <th>
+                @Html.DisplayName("Four")
+            </th>
+            <th>
+                @Html.DisplayName("Five")
+            </th>
+            <th>
+                @Html.DisplayName("Six")
+            </th>
+            <th>
+                @Html.DisplayName("Seven")
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.SelectedWeek.Progress)
+        {
+            <tr>
+                <td>
+                    @item.Goal.Name
+                </td>
+                <td>
+                    @item.Goal.Description
+                </td>
+                <td>
+                    @item.Goal.StepSize
+                </td>
+                <td>
+                    @item.Goal.WeeklyTarget
+                </td>
+                <td>
+                    @item.Goal.Unit
+                </td>
+                <td>
+                    <button type="button" onclick="updateProgress(@item.Id, -1)">-</button>
+                    <progress max="@item.Goal.WeeklyTarget" value="@item.Points" id="progress_@item.Id"></progress>
+                    <button type="button" onclick="updateProgress(@item.Id, 1)">+</button>
+                </td>
+                <td>
+                    @{
+                        var x = (item.Points / item.Goal.WeeklyTarget) * item.Goal.Factor;
+                        @x
+                    }
+                </td>
+            </tr>
+                        }
+        <tr>
+            <td />
+            <td />
+            <td />
+            <td />
+            <td />
+            <td>
+                @{
+                    var total = Model.SelectedWeek.Progress.Sum(p => p.Goal.Factor);
+
+                    var runningTotal = 0.0;
+                    foreach (var p in Model.SelectedWeek.Progress)
+                    {
+                        var x = (p.Points / p.Goal.WeeklyTarget) * p.Goal.Factor;
+                        runningTotal += x;
+                    }
+                    var value = (int)runningTotal;
+
+                    <progress max="@total" value="@value"></progress>
+                }
+            </td>
+            <td />
+        </tr>
+    </tbody>
+</table>
