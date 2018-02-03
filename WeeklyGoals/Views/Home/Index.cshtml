@@ -68,10 +68,7 @@
                 </td>
                 <td>
                     <button type="button" onclick="updateProgress(@item.Id, -1)">-</button>
-                    <div class="tooltip1">
-                        <progress max="@item.Goal.WeeklyTarget" value="@item.Points" id="progress_@item.Id"></progress>
-                        <span class="tooltiptext">@item.Points @item.Goal.Unit</span>
-                    </div>
+                    <progress max="@item.Goal.WeeklyTarget" value="@item.Points" id="progress_@item.Id" data-toggle="tooltip" title="@item.Points @item.Goal.Unit"></progress>
                     <button type="button" onclick="updateProgress(@item.Id, 1)">+</button>
                 </td>
                 <td>
