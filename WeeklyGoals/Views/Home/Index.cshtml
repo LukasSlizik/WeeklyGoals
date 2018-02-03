@@ -17,12 +17,6 @@
     </div>
 </div>
 
-<div id="demo1" style="background-color:aqua">
-</div>
-
-<div id="demo2" style="background-color:yellow">
-</div>
-
 <p>
     <a asp-controller="Goals" asp-action="Create">Create New</a>
 </p>
@@ -74,7 +68,10 @@
                 </td>
                 <td>
                     <button type="button" onclick="updateProgress(@item.Id, -1)">-</button>
-                    <progress max="@item.Goal.WeeklyTarget" value="@item.Points" id="progress_@item.Id"></progress>
+                    <div class="tooltip1">
+                        <progress max="@item.Goal.WeeklyTarget" value="@item.Points" id="progress_@item.Id"></progress>
+                        <span class="tooltiptext">@item.Points @item.Goal.Unit</span>
+                    </div>
                     <button type="button" onclick="updateProgress(@item.Id, 1)">+</button>
                 </td>
                 <td>

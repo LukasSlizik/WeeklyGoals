@@ -83,30 +83,5 @@ namespace WeeklyGoals.Controllers
             return Ok(progress.Points);
         }
 
-
-        //[HttpGet]
-        //public IActionResult UpdateProgress(int? id, int multiplicator, string selectedWeek)
-        //{
-        //    if (id == null)
-        //        return NotFound();
-
-        //    var progress = _ctx.Progress.Include(p => p.Goal).Single(p => p.Id.Equals(id));
-        //    if (progress == null)
-        //        return NotFound();
-
-        //    var goal = _ctx.Goals.Single(g => g.Id.Equals(progress.Goal.Id));
-        //    if (goal == null)
-        //        return NotFound();
-
-        //    var delta = goal.StepSize * multiplicator;
-        //    progress.Points += delta;
-
-        //    var gPoints = (progress.Points / progress.Goal.WeeklyTarget) * 100;
-        //    _ctx.SaveChanges();
-
-        //    var vm = GetViewModel(selectedWeek);
-        //    return View("Index", vm);
-        //}
-
     }
 }
