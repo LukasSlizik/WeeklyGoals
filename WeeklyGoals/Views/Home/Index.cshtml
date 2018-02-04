@@ -71,7 +71,7 @@
                     <progress max="@item.Goal.WeeklyTarget" value="@item.Points" id="progress_@item.Id" data-toggle="tooltip" title="@item.Points @item.Goal.Unit"></progress>
                     <button type="button" onclick="updateProgress(@item.Id, 1)">+</button>
                 </td>
-                <td>
+                <td id="total_@item.Id">
                     @{
                         var x = (item.Points / item.Goal.WeeklyTarget) * item.Goal.Factor;
                         @x
