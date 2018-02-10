@@ -44,15 +44,10 @@ namespace WeeklyGoals.Controllers
             var selectedWeek = weeks.SingleOrDefault(w => w.Id.Equals(id));
             selectedWeek.Progress = selectedWeek.Progress.OrderBy(p => p.Id).ToList();
 
-            var runningTotal = selectedWeek.Progress.Sum(p => p.Points);
-            var total = selectedWeek.Progress.Sum(p => p.Goal.WeeklyTarget);
-
             if (selectedWeek == null)
                 return null;
 
-            var vm = new MainViewModel(new SelectList(weeks), selectedWeek, selectedWeek.Progress.OrderBy(p => p.Id).ToList());
-            vm.RunningTotal = runningTotal;
-            vm.Total = total;
+            var vm = new MainViewModel(new SelectList(weeks), selectedWeek);
             return vm;
         }
 

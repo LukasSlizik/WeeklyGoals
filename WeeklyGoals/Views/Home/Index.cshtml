@@ -86,19 +86,7 @@
             <td />
             <td />
             <td>
-                @{
-                    var total = Model.SelectedWeek.Progress.Sum(p => p.Goal.Factor);
-
-                    var runningTotal = 0.0;
-                    foreach (var p in Model.SelectedWeek.Progress)
-                    {
-                        var x = (p.Points / p.Goal.WeeklyTarget) * p.Goal.Factor;
-                        runningTotal += x;
-                    }
-                    var value = (int)runningTotal;
-
-                    <progress max="@total" value="@value"></progress>
-                }
+                <progress max="@Model.Total" value="@Model.RunningTotal" data-toggle="tooltip" title="@Model.OverallPercentage %"></progress>
             </td>
             <td />
         </tr>
