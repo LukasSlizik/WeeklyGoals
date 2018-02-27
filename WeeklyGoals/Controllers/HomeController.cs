@@ -21,6 +21,7 @@ namespace WeeklyGoals.Controllers
         {
             return View(GetViewModel("1"));
 
+
         }
 
         [HttpPost]
