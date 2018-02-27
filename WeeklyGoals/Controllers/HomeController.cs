@@ -20,6 +20,7 @@ namespace WeeklyGoals.Controllers
         public IActionResult Index()
         {
             return View(GetViewModel("1"));
+
         }
 
         [HttpPost]
