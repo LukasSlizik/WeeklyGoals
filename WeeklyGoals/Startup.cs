@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Rewrite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -21,6 +24,18 @@ namespace WeeklyGoals
         {
             services.AddDbContext<GoalsContext>(options => options.UseSqlServer(Configuration.GetConnectionString("GoalsContext")));
             services.AddMvc();
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
+
+            })
+            .AddOpenIdConnect(options => {
+                Configuration.Bind("GoogleAuth", options);
+            })
+            .AddCookie();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -32,8 +47,9 @@ namespace WeeklyGoals
                 app.UseBrowserLink();
             }
 
+            app.UseRewriter(new RewriteOptions().AddRedirectToHttpsPermanent());
             app.UseStaticFiles();
-
+            app.UseAuthentication();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

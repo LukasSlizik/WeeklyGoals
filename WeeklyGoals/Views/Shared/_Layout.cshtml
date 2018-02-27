@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
-    <div class="container body-content">
+    <div class="container-fluid">
         @RenderBody()
     </div>
 
@@ -17,5 +17,23 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
 
     @RenderSection("Scripts", required: false)
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        foreach (var identity in User.Identities)
+        {
+            <h3>identity.Name</h3>
+            <ul>
+                @foreach (var c in identity.Claims)
+                {
+                    <li>@c.Type - @c.Value</li>
+                }
+            </ul>
+        }
+    }
+    else
+    {
+        <div>Anonymous</div>
+    }
 </body>
 </html>

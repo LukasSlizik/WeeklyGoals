@@ -5,9 +5,11 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WeeklyGoals.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private GoalsContext _ctx;
@@ -17,11 +19,11 @@ namespace WeeklyGoals.Controllers
             _ctx = ctx;
         }
 
+        [HttpGet]
+        [AllowAnonymous]
         public IActionResult Index()
         {
             return View(GetViewModel("1"));
-
-
         }
 
         [HttpPost]

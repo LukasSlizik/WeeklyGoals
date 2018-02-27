@@ -23,5 +23,7 @@ namespace WeeklyGoals.Models
         {
             Points = points;
         }
+
+        public double ActualPoints => (Points / Goal.WeeklyTarget) * Goal.Factor;
     }
 }
