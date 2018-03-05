@@ -9,6 +9,10 @@
 </head>
 <body>
     <div class="container-fluid">
+        @if (User.Identity.IsAuthenticated)
+        {
+            <a asp-controller="Home" asp-action="Logout">Logout</a>
+        }
         @RenderBody()
     </div>
 

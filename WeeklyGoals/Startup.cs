@@ -54,7 +54,8 @@ namespace WeeklyGoals
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Home}/{action=Login}/{id?}");
+                //template: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

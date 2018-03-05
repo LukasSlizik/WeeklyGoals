@@ -6,6 +6,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace WeeklyGoals.Controllers
 {
@@ -17,6 +20,21 @@ namespace WeeklyGoals.Controllers
         public HomeController(GoalsContext ctx)
         {
             _ctx = ctx;
+        }
+
+        [HttpGet]
+        public IActionResult Login()
+        {
+            // challenge the user by logging in with OIDC server 
+            return Challenge(new AuthenticationProperties { RedirectUri = Url.Action(nameof(Index)) }, OpenIdConnectDefaults.AuthenticationScheme);
+        }
+
+        [HttpGet]
+        public IActionResult Logout()
+        {
+            // remove cookie that authenticates user
+            // also logout of OIDC identity provider
+            return SignOut(new AuthenticationProperties { RedirectUri = Url.Action(nameof(Index)) }, CookieAuthenticationDefaults.AuthenticationScheme, OpenIdConnectDefaults.AuthenticationScheme);
         }
 
         [HttpGet]
@@ -53,27 +71,6 @@ namespace WeeklyGoals.Controllers
 
             var vm = new MainViewModel(new SelectList(weeks), selectedWeek);
             return vm;
-        }
-
-        [HttpGet]
-        public IActionResult UpdateProgress(int? id, int multiplicator)
-        {
-            if (id == null)
-                return NotFound();
-
-            var progress = _ctx.Progress.Include(p => p.Goal).Single(p => p.Id.Equals(id));
-            if (progress == null)
-                return NotFound();
-
-            var goal = _ctx.Goals.Single(g => g.Id.Equals(progress.Goal.Id));
-            if (goal == null)
-                return NotFound();
-
-            var delta = goal.StepSize * multiplicator;
-            progress.Points += delta;
-
-            _ctx.SaveChanges();
-            return Ok();
         }
 
         [HttpGet]
