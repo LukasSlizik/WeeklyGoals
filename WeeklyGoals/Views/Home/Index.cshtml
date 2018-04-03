@@ -74,8 +74,8 @@
                 </td>
                 <td id="total_@item.Id">@item.ActualPoints</td>
                 <td>
-                    @*<a asp-action="Edit" asp-route-id="@item.Goal.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Goal.Id">Details</a> |*@
+                    <a asp-action="Details" asp-route-goalId="@item.Goal.Id">Details</a> |
+                    <a asp-action="Edit" asp-route-goalId="@item.Goal.Id">Edit</a> |
                     <a asp-action="Delete" asp-route-progressId="@item.Id">Delete</a>
                 </td>
             </tr>

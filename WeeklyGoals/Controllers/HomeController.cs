@@ -175,6 +175,59 @@ namespace WeeklyGoals.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        // GET: Goals/Details/5
+        public IActionResult Details(int? goalId)
+        {
+            if (goalId == null)
+                return NotFound();
+
+            var goal = _ctx.Goals.SingleOrDefault(m => m.Id == goalId);
+            if (goal == null)
+                return NotFound();
+
+            return View(goal);
+        }
+
+        // GET: Goals/Edit/5
+        public IActionResult Edit(int? goalId)
+        {
+            if (goalId == null)
+                return NotFound();
+
+            var goal = _ctx.Goals.SingleOrDefault(m => m.Id == goalId);
+            if (goal == null)
+                return NotFound();
+
+            return View(goal);
+        }
+
+        // POST: Goals/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(int id, [Bind("Id,Name,Description,WeeklyTarget,StepSize,Unit,Factor")] Goal goal)
+        {
+            if (id != goal.Id)
+                return NotFound();
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _ctx.Update(goal);
+                    _ctx.SaveChanges();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!_ctx.Goals.Any(g => g.Id == goal.Id))
+                        return NotFound();
+                    else
+                        throw;
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(goal);
+        }
+
         // POST: Home/DeletePermanent/1
         [HttpPost]
         [ValidateAntiForgeryToken]
