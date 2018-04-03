@@ -18,7 +18,7 @@
 </div>
 
 <p>
-    <a asp-controller="Goals" asp-action="Create">Create New</a>
+    <a asp-action="Create" asp-route-selectedWeekId="@Model.SelectedWeek.Id">Create New</a>
 </p>
 
 <table class="table">

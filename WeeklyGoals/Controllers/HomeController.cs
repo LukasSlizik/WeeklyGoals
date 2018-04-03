@@ -37,6 +37,45 @@ namespace WeeklyGoals.Controllers
             return SignOut(new AuthenticationProperties { RedirectUri = Url.Action(nameof(Index)) }, CookieAuthenticationDefaults.AuthenticationScheme, OpenIdConnectDefaults.AuthenticationScheme);
         }
 
+        // GET: Goals/Create/2
+        [HttpGet]
+        public IActionResult Create(int? selectedWeekId)
+        {
+            if (selectedWeekId == null)
+                return NotFound();
+
+            TempData["weekId"] = selectedWeekId.Value;
+            return View();
+        }
+
+        // POST: Goals/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create([Bind("Name, Description, WeeklyTarget, StepSize, Unit")]Goal goal)
+        {
+            if (ModelState.IsValid)
+            {
+                // get and check the selected Week
+                var weekId = (int)TempData["weekId"];
+                var selectedWeek = _ctx.Weeks.SingleOrDefault(w => w.Id == weekId);
+                if (selectedWeek == null)
+                    return NotFound();
+
+                var entity = _ctx.Add(goal);
+
+                // add new progress from the selected Week on
+                foreach (var week in _ctx.Weeks.Where(w => w.Start >= selectedWeek.Start).ToList())
+                {
+                    var progress = new Progress(week, goal);
+                    _ctx.Add(progress);
+                }
+                _ctx.SaveChanges();
+
+                return RedirectToAction(nameof(Index));
+            }
+            return View(nameof(Index));
+        }
+
         [HttpGet]
         [AllowAnonymous]
         public IActionResult Index()
