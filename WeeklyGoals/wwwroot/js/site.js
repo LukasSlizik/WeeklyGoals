@@ -12,3 +12,14 @@
     xhttp.open("GET", "UpdateProgress1/" + progressId + "?multiplicator=" + multiplicator, true);
     xhttp.send();
 }
+
+$(document).ready(function () {
+    var weekSelector = document.querySelector('#weekSelector');
+    weekSelector.addEventListener('change', function () {
+        var val = weekSelector.value;
+
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("GET", "Select?week=" + val, true);
+        xhttp.send();
+    }, false);
+});

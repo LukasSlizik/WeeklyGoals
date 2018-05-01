@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Text.RegularExpressions;
 
 namespace WeeklyGoals.Controllers
 {
@@ -16,6 +17,8 @@ namespace WeeklyGoals.Controllers
     public class HomeController : Controller
     {
         private GoalsContext _ctx;
+        private Regex _weekRegex = new Regex("^[0-9]{4}-W([0-9]{2})$");
+        private Regex _yearRegex = new Regex("^([0-9]{4})-W[0-9]{2}$");
 
         public HomeController(GoalsContext ctx)
         {
@@ -84,13 +87,34 @@ namespace WeeklyGoals.Controllers
         }
 
         [HttpPost]
-        public IActionResult Select(string SelectedWeek)
+        public IActionResult SelectWeek(DateTime o)
         {
-            var vm = GetViewModel(SelectedWeek);
+            return Ok();
+        }
+
+        [HttpGet]
+        public IActionResult Select(string week)
+        {
+            var parsedYear = ParseYear(week);
+            var parsedWeek = ParseWeek(week);
+
+            var vm = GetViewModel(parsedWeek);
             if (vm == null)
                 return NotFound();
 
             return View("Index", vm);
+        }
+
+        private string ParseWeek(string week)
+        {
+            var parsedWeek = _weekRegex.Match(week);
+            return parsedWeek.Groups.Skip(1).First().Value;
+        }
+
+        private string ParseYear(string week)
+        {
+            var parsedYear = _yearRegex.Match(week);
+            return parsedYear.Groups.Skip(1).First().Value;
         }
 
         private MainViewModel GetViewModel(string SelectedWeek)
