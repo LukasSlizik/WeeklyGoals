@@ -12,7 +12,7 @@ namespace WeeklyGoals.ViewModels
         [Display(Name = "Selected Week")]
         public Week SelectedWeek { get; set; }
         public IEnumerable<Progress> Progress => SelectedWeek.Progress.OrderBy(p => p.Id);
-        public int RunningTotal => SelectedWeek.Progress.Sum(p => (int)(p.Points/p.Goal.WeeklyTarget)*p.Goal.Factor);
+        public int RunningTotal => SelectedWeek.Progress.Sum(p => (int)(p.Points / p.Goal.WeeklyTarget) * p.Goal.Factor);
         public int Total => SelectedWeek.Progress.Sum(p => p.Goal.Factor);
         public int OverallPercentage => (int)(((double)RunningTotal / Total) * 100);
 
