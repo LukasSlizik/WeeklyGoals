@@ -25,6 +25,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="ClientApp\app\components\table\progtable.component.html" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\app\components\table\progtable.component.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Update="package.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
