@@ -6,7 +6,12 @@ var gulp = require("gulp"),
     concat = require("gulp-concat"),
     cssmin = require("gulp-cssmin"),
     uglify = require("gulp-uglify"),
-    _ = require('lodash');
+    _ = require('lodash'),
+    ts = require('gulp-typescript'),
+    sourcemaps = require('gulp-sourcemaps'),
+    path = require('path');
+
+var tsProject = ts.createProject('tsconfig.json');
 
 var webroot = "./wwwroot/";
 
@@ -54,4 +59,21 @@ gulp.task('copy-assets', function () {
     _(assets).forEach(function (assets, type) {
         gulp.src(assets).pipe(gulp.dest('./wwwroot/' + type));
     });
+});
+
+gulp.task('default', function () {
+    var tsResult = tsProject
+        .src()
+        .pipe(sourcemaps.init())
+        .pipe(ts(tsProject));
+
+    return tsResult.js
+        .pipe(sourcemaps.write({
+            // Return relative source map root directories per file.
+            sourceRoot: function (file) {
+                var sourceFile = path.join(file.cwd, file.sourceMap.file);
+                return path.relative(path.dirname(sourceFile), file.cwd);
+            }
+        }))
+        .pipe(gulp.dest('.'));
 });

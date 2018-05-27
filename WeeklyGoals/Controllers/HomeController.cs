@@ -34,6 +34,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Text.RegularExpressions;
+using System.Collections.Generic;
 
 namespace WeeklyGoals.Controllers
 {
@@ -114,6 +115,47 @@ namespace WeeklyGoals.Controllers
         public IActionResult SelectWeek(DateTime o)
         {
             return Ok();
+        }
+
+        [HttpGet]
+        public IActionResult GetProgressForWeek(int weekId)
+        {
+            var viewModels = new List<ProgressViewModel>();
+            var progress = _ctx.Progress
+                                        .Include(p => p.Goal)
+                                        .Include(p => p.Week)
+                                        .Where(p => p.Week.Id == weekId);
+
+            if (progress == null || !progress.Any())
+                return NotFound();
+
+            foreach (var p in progress)
+            {
+                viewModels.Add(new ProgressViewModel()
+                {
+                    Description = p.Goal.Description,
+                    GoalName = p.Goal.Name,
+                    Points = p.Points,
+                    StepSize = p.Goal.StepSize,
+                    Progress =  1,
+                    Target = p.Goal.WeeklyTarget,
+                    Unit = p.Goal.Unit
+                });
+            }
+
+            return Json(viewModels);
+        }
+
+        [HttpGet]
+        public IActionResult GetData(int weekId)
+        {
+            var model = new SimpleModel()
+            {
+                Age = 15,
+                Name = "Lukas"
+            };
+
+            return Json(model);
         }
 
         [HttpGet]

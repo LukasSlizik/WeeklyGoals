@@ -9,6 +9,8 @@ import { NavMenuComponent } from './components/navmenu/navmenu.component';
 import { HomeComponent } from './components/home/home.component';
 import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
 import { CounterComponent } from './components/counter/counter.component';
+import { ProgtableComponent } from './components/progtable/progtable.component';
+import { ProglineComponent } from './components/progline/progline.component';
 
 @NgModule({
     declarations: [
@@ -16,7 +18,9 @@ import { CounterComponent } from './components/counter/counter.component';
         NavMenuComponent,
         CounterComponent,
         FetchDataComponent,
-        HomeComponent
+        HomeComponent,
+        ProgtableComponent,
+        ProglineComponent
     ],
     imports: [
         CommonModule,
@@ -27,6 +31,8 @@ import { CounterComponent } from './components/counter/counter.component';
             { path: 'home', component: HomeComponent },
             { path: 'counter', component: CounterComponent },
             { path: 'fetch-data', component: FetchDataComponent },
+            { path: 'progtable', component: ProgtableComponent },
+            { path: 'progline', component: ProglineComponent },
             { path: '**', redirectTo: 'home' }
         ])
     ]
