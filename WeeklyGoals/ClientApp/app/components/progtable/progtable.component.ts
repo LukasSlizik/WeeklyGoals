@@ -3,6 +3,7 @@ import { ProgressService } from "../../services/progress.service";
 import { ProgressModel } from "../../models/ProgressModel";
 import { SimpleModel } from "../../models/SimpleModel";
 import { Http } from "@angular/http";
+import { HttpClient } from "@angular/common/http";
 
 @Component({
     selector: 'progtable',
