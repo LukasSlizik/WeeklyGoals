@@ -30,6 +30,7 @@ import { ProglineComponent } from './components/progline/progline.component';
         HttpClientModule,
         RouterModule.forRoot([
             { path: '', redirectTo: 'home', pathMatch: 'full' },
+            { path: 'home/getdata', redirectTo: 'home/GetData' },
             { path: 'home', component: HomeComponent },
             { path: 'counter', component: CounterComponent },
             { path: 'fetch-data', component: FetchDataComponent },

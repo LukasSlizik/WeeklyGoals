@@ -1,22 +1,19 @@
-﻿import { Component } from '@angular/core';
-import { ProgressModel } from "../../models/ProgressModel";
+﻿import { Component, Input } from '@angular/core';
 import { ProgressService } from "../../services/progress.service";
+import { IProgress } from "../../models/IProgress";
 
 @Component({
-    selector: 'progline',
+    selector: '[progline]',
     providers: [ProgressService],
     templateUrl: './progline.component.html'
 })
 
 export class ProglineComponent {
-    public progressModel: ProgressModel;
+    @Input('progline') progress: IProgress;
 
-    constructor(private _progressService: ProgressService) {
-        console.log('constructor');
+    constructor() {
     }
 
     ngOnInit(): void {
-        console.log('progline component OnInit');
-        this.progressModel = this._progressService.getProgress();
     }
 }

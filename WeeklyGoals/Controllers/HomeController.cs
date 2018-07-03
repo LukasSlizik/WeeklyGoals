@@ -1,27 +1,3 @@
-//using System;
-//using System.Collections.Generic;
-//using System.Diagnostics;
-//using System.Linq;
-//using System.Threading.Tasks;
-//using Microsoft.AspNetCore.Mvc;
-
-//namespace WeeklyGoals.Controllers
-//{
-//    public class HomeController : Controller
-//    {
-//        public IActionResult Index()
-//        {
-//            return View();
-//        }
-
-//        public IActionResult Error()
-//        {
-//            ViewData["RequestId"] = Activity.Current?.Id ?? HttpContext.TraceIdentifier;
-//            return View();
-//        }
-//    }
-//}
-
 using Microsoft.AspNetCore.Mvc;
 using WeeklyGoals.Models;
 using WeeklyGoals.ViewModels;
@@ -129,33 +105,18 @@ namespace WeeklyGoals.Controllers
             if (progress == null || !progress.Any())
                 return NotFound();
 
-            foreach (var p in progress)
+            viewModels = progress.Select(p => new ProgressViewModel()
             {
-                viewModels.Add(new ProgressViewModel()
-                {
-                    Description = p.Goal.Description,
-                    GoalName = p.Goal.Name,
-                    Points = p.Points,
-                    StepSize = p.Goal.StepSize,
-                    Progress =  1,
-                    Target = p.Goal.WeeklyTarget,
-                    Unit = p.Goal.Unit
-                });
-            }
+                Description = p.Goal.Description,
+                GoalName = p.Goal.Name,
+                Points = p.Points,
+                StepSize = p.Goal.StepSize,
+                Target = p.Goal.WeeklyTarget,
+                Unit = p.Goal.Unit,
+                Factor = p.Goal.Factor
+            }).ToList();
 
-            return Json(viewModels);
-        }
-
-        [HttpGet]
-        public IActionResult GetData(int weekId)
-        {
-            var model = new SimpleModel()
-            {
-                Age = 15,
-                Name = "Lukas"
-            };
-
-            return Json(model);
+            return Ok(viewModels);
         }
 
         [HttpGet]

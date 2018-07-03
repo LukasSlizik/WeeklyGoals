@@ -22,16 +22,15 @@
 
   <ItemGroup>
     <None Remove="ClientApp\app\components\progline\progline.component.ts" />
-    <None Remove="ClientApp\app\models\ProgressModel.ts" />
-    <None Remove="ClientApp\app\models\Serializable.ts" />
+    <None Remove="ClientApp\app\components\progtable\IProduct.ts" />
+    <None Remove="ClientApp\app\models\IProduct.ts" />
+    <None Remove="ClientApp\app\models\IProgress.ts" />
   </ItemGroup>
 
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\app\components\progline\progline.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\progtable\progtable.component.ts" />
-    <TypeScriptCompile Include="ClientApp\app\models\Serializable.ts" />
-    <TypeScriptCompile Include="ClientApp\app\models\SimpleModel.ts" />
-    <TypeScriptCompile Include="ClientApp\app\models\ProgressModel.ts" />
+    <TypeScriptCompile Include="ClientApp\app\models\IProgress.ts" />
     <TypeScriptCompile Include="ClientApp\app\services\progress.service.ts" />
   </ItemGroup>
 
