@@ -1,4 +1,9 @@
-﻿<table class="table">
+﻿<div>
+    <label>Select your week</label>
+    <input type="week" [(ngModel)]='calendarValue' (change)="inputChanged()" />
+</div>
+
+<table class="table">
     <thead>
         <tr>
             <th>GoalName</th>

@@ -1,6 +1,6 @@
 ﻿import { Component } from '@angular/core';
 import { ProgressService } from "../../services/progress.service";
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse, HttpParams } from "@angular/common/http";
 import { Http } from "@angular/http";
 import { IProgress } from "../../models/IProgress";
 import { Observable } from 'rxjs/Observable';
@@ -15,8 +15,9 @@ import 'rxjs/add/operator/map';
 })
 
 export class ProgtableComponent {
-    private _progressUrl: string = 'Home/GetProgressForWeek?weekId=2'
+    private _progressUrl: string = 'Home/GetProgressForWeek'
     progress: IProgress[];
+    calendarValue: string = "2018-W01";
 
     constructor(private _httpClient: HttpClient) { }
 
@@ -38,6 +39,23 @@ export class ProgtableComponent {
 
     ngOnInit(): void {
         this._httpClient.get<IProgress[]>(this._progressUrl)
+            .catch(this.handleError)
+            .subscribe(progress => {
+                this.progress = progress;
+            });
+    }
+
+    inputChanged(): void {
+        var regex = new RegExp('W(.*)');
+        var match = regex.exec(this.calendarValue);
+        var week: number = 1;   // fallback
+        if (match != null)
+            week = Number(match[1]);
+        console.log(week);
+
+        this._httpClient.get(this._progressUrl, {
+            params: new HttpParams().set('weekId', week.toString())
+        })
             .catch(this.handleError)
             .subscribe(progress => {
                 this.progress = progress;
