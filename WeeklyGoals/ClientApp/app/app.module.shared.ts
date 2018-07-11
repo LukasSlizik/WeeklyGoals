@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-
 import { AppComponent } from './components/app/app.component';
 import { NavMenuComponent } from './components/navmenu/navmenu.component';
 import { HomeComponent } from './components/home/home.component';
@@ -12,6 +11,7 @@ import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
 import { CounterComponent } from './components/counter/counter.component';
 import { ProgtableComponent } from './components/progtable/progtable.component';
 import { ProglineComponent } from './components/progline/progline.component';
+import { ProgressService } from "./services/progress.service";
 
 @NgModule({
     declarations: [
@@ -38,6 +38,9 @@ import { ProglineComponent } from './components/progline/progline.component';
             { path: 'progline', component: ProglineComponent },
             { path: '**', redirectTo: 'home' }
         ])
+    ],
+    providers: [
+        ProgressService
     ]
 })
 export class AppModuleShared {
