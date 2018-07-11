@@ -5,6 +5,8 @@ namespace WeeklyGoals.ViewModels
     [DataContract]
     public class ProgressViewModel
     {
+        [DataMember(Name = "id")]
+        public int Id { get; set; }
         [DataMember(Name = "goalName")]
         public string GoalName { get; set; }
 

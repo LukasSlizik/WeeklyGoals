@@ -5,4 +5,8 @@
 <td>{{progress.target}}</td>
 <td>{{progress.factor}}</td>
 <td>{{progress.points}}</td>
-<td><progress value="{{progress.points}}" max="{{progress.target}}"></progress></td>
+<td>
+    <button id="down" (click)="step($event)">-</button>
+    <progress value="{{progress.points}}" max="{{progress.target}}"></progress>
+    <button id="up" (click)="step($event)">+</button>
+</td>

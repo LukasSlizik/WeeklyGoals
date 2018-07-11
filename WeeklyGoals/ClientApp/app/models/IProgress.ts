@@ -1,4 +1,5 @@
 ﻿export interface IProgress {
+    id: number;
     goalName: string;
     description: string;
     stepSize: number;

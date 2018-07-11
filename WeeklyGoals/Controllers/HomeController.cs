@@ -87,12 +87,6 @@ namespace WeeklyGoals.Controllers
             return View(GetViewModel("1"));
         }
 
-        [HttpPost]
-        public IActionResult SelectWeek(DateTime o)
-        {
-            return Ok();
-        }
-
         [HttpGet]
         public IActionResult GetProgressForWeek(int weekId)
         {
@@ -107,6 +101,7 @@ namespace WeeklyGoals.Controllers
 
             viewModels = progress.Select(p => new ProgressViewModel()
             {
+                Id = p.Id,
                 Description = p.Goal.Description,
                 GoalName = p.Goal.Name,
                 Points = p.Points,
@@ -117,31 +112,6 @@ namespace WeeklyGoals.Controllers
             }).ToList();
 
             return Ok(viewModels);
-        }
-
-        [HttpGet]
-        public IActionResult Select(string week)
-        {
-            var parsedYear = ParseYear(week);
-            var parsedWeek = ParseWeek(week);
-
-            var vm = GetViewModel(parsedWeek);
-            if (vm == null)
-                return NotFound();
-
-            return View("Index", vm);
-        }
-
-        private string ParseWeek(string week)
-        {
-            var parsedWeek = _weekRegex.Match(week);
-            return parsedWeek.Groups.Skip(1).First().Value;
-        }
-
-        private string ParseYear(string week)
-        {
-            var parsedYear = _yearRegex.Match(week);
-            return parsedYear.Groups.Skip(1).First().Value;
         }
 
         private MainViewModel GetViewModel(string SelectedWeek)
@@ -161,6 +131,16 @@ namespace WeeklyGoals.Controllers
 
             var vm = new MainViewModel(new SelectList(weeks), selectedWeek);
             return vm;
+        }
+
+        [HttpGet]
+        public IActionResult UpdateProgress(int progressId, int points)
+        {
+            var progress = _ctx.Progress.Single(p => p.Id == progressId);
+            progress.Points = points;
+            _ctx.SaveChanges();
+
+            return Ok();
         }
 
         [HttpGet]
