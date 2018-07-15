@@ -13,7 +13,7 @@ export class ProglineComponent {
     @Input('progline') progress: IProgress;
 
 
-    constructor(private _httpClient: HttpClient, private _progressSvc: ProgressService) {
+    constructor(private _progressSvc: ProgressService) {
     }
 
     public step($event: any): void {

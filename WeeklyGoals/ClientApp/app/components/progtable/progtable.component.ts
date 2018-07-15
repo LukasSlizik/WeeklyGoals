@@ -21,7 +21,7 @@ export class ProgtableComponent {
     initialWeekId: number = 2;
     weekIdRegex: string = "W(.*)";
 
-    constructor(private _httpClient: HttpClient, private _progressSvc: ProgressService) { }
+    constructor(private _progressSvc: ProgressService) { }
 
     ngOnInit(): void {
         this._progressSvc.getAllProgressForWeek(this.initialWeekId).subscribe(progress => {
