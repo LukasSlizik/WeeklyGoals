@@ -3,6 +3,8 @@
     <input type="week" [(ngModel)]='calendarValue' (change)="weekSelected()" />
 </div>
 
+<p *ngIf="!progress"><em>Loading...</em></p>
+
 <table class="table">
     <thead>
         <tr>

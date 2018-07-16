@@ -6,22 +6,18 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { AppComponent } from './components/app/app.component';
 import { NavMenuComponent } from './components/navmenu/navmenu.component';
-import { HomeComponent } from './components/home/home.component';
-import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
-import { CounterComponent } from './components/counter/counter.component';
 import { ProgtableComponent } from './components/progtable/progtable.component';
 import { ProglineComponent } from './components/progline/progline.component';
+import { GoalComponent } from './components/goal/goal.component';
 import { ProgressService } from "./services/progress.service";
 
 @NgModule({
     declarations: [
         AppComponent,
         NavMenuComponent,
-        CounterComponent,
-        FetchDataComponent,
-        HomeComponent,
         ProgtableComponent,
-        ProglineComponent
+        ProglineComponent,
+        GoalComponent
     ],
     imports: [
         CommonModule,
@@ -29,14 +25,11 @@ import { ProgressService } from "./services/progress.service";
         FormsModule,
         HttpClientModule,
         RouterModule.forRoot([
-            { path: '', redirectTo: 'home', pathMatch: 'full' },
-            { path: 'home/getdata', redirectTo: 'home/GetData' },
-            { path: 'home', component: HomeComponent },
-            { path: 'counter', component: CounterComponent },
-            { path: 'fetch-data', component: FetchDataComponent },
+            { path: '', redirectTo: 'progtable', pathMatch: 'full' },
             { path: 'progtable', component: ProgtableComponent },
             { path: 'progline', component: ProglineComponent },
-            { path: '**', redirectTo: 'home' }
+            { path: 'goal', component: GoalComponent },
+            { path: '**', redirectTo: 'progtable' }
         ], { enableTracing: true })
     ],
     providers: [
