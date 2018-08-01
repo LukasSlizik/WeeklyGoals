@@ -1,8 +1,9 @@
 ﻿import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { IProgress } from "../models/IProgress";
 import { Observable } from 'rxjs/Observable';
 import { HttpParams } from "@angular/common/http";
+import { Goal } from "../models/Goal";
 
 @Injectable()
 export class ProgressService {
@@ -22,6 +23,14 @@ export class ProgressService {
                 .append('progressId', progressId.toString())
                 .append('points', points.toString())
         }).catch(this.handleError).subscribe();
+    }
+
+    createNewGoal(goal: Goal): void {
+        let headers = new HttpHeaders();
+        headers = headers.set('Content-Type', 'application/json');
+        //@Html.AntiForgeryToken()
+
+        this._httpClient.post('home/create', JSON.stringify(goal), { headers: headers }).subscribe();
     }
 
     private handleError(err: HttpErrorResponse) {

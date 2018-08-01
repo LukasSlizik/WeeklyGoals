@@ -1,5 +1,6 @@
 ﻿import { ProgressService } from "../../services/progress.service";
 import { Component } from "@angular/core";
+import { Goal } from "../../models/Goal"
 
 @Component({
     selector: 'goal',
@@ -18,5 +19,10 @@ export class GoalComponent {
 
     ngOnInit(): void {
 
+    }
+
+    public createGoal() {
+        var goal = new Goal(this.name, this.description, this.stepSize, this.unit, this.weeklyTarget, this.factor)
+        this._progressSvc.createNewGoal(goal);
     }
 }

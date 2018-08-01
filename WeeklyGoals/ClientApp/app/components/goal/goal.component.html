@@ -1,24 +1,29 @@
-﻿<div>
-    <label>name</label>
-    <input type="text"/>
+﻿<div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="control-label">name</label>
+            <input class="form-control" type="text" [(ngModel)]='name' />
+        </div>
+        <div class="form-group">
+            <label class="control-label">description</label>
+            <input class="form-control" type="text" [(ngModel)]='description' />
+        </div>
+        <div class="form-group">
+            <label class="control-label">stepSize</label>
+            <input class="form-control" type="number" min="0" [(ngModel)]='stepSize'/>
+        </div>
+        <div class="form-group">
+            <label class="control-label">unit</label>
+            <input class="form-control" type="text" [(ngModel)]='unit' />
+        </div>
+        <div class="form-group">
+            <label class="control-label">weeklyTarget</label>
+            <input class="form-control" type="number" [(ngModel)]='weeklyTarget' />
+        </div>
+        <div class="form-group">
+            <label class="control-label">factor</label>
+            <input class="form-control" type="number" [(ngModel)]='factor' />
+        </div>
+    </div>
 </div>
-<div>
-    <label>description</label>
-    <input type="text" />
-</div>
-<div>
-    <label>stepSize</label>
-    <input type="text" />
-</div>
-<div>
-    <label>unit</label>
-    <input type="text" />
-</div>
-<div>
-    <label>weeklyTarget</label>
-    <input type="text" />
-</div>
-<div>
-    <label>factor</label>
-    <input type="text" />
-</div>
+<a class="btn btn-default" (click)='createGoal()'>Create Goal</a>

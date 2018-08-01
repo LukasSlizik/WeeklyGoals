@@ -30,7 +30,7 @@ import { ProgressService } from "./services/progress.service";
             { path: 'progline', component: ProglineComponent },
             { path: 'goal', component: GoalComponent },
             { path: '**', redirectTo: 'progtable' }
-        ], { enableTracing: true })
+        ])
     ],
     providers: [
         ProgressService

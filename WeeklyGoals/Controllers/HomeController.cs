@@ -54,30 +54,30 @@ namespace WeeklyGoals.Controllers
 
         // POST: Goals/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("Name, Description, WeeklyTarget, StepSize, Unit")]Goal goal)
+        public IActionResult Create([FromBody]Goal goal)
         {
-            if (ModelState.IsValid)
-            {
-                // get and check the selected Week
-                var weekId = (int)TempData["weekId"];
-                var selectedWeek = _ctx.Weeks.SingleOrDefault(w => w.Id == weekId);
-                if (selectedWeek == null)
-                    return NotFound();
+            //if (ModelState.IsValid)
+            //{
+            //    // get and check the selected Week
+            //    var weekId = (int)TempData["weekId"];
+            //    var selectedWeek = _ctx.Weeks.SingleOrDefault(w => w.Id == weekId);
+            //    if (selectedWeek == null)
+            //        return NotFound();
 
-                var entity = _ctx.Add(goal);
+            //    var entity = _ctx.Add(goal);
 
-                // add new progress from the selected Week on
-                foreach (var week in _ctx.Weeks.Where(w => w.Start >= selectedWeek.Start).ToList())
-                {
-                    var progress = new Progress(week, goal);
-                    _ctx.Add(progress);
-                }
-                _ctx.SaveChanges();
+            //    // add new progress from the selected Week on
+            //    foreach (var week in _ctx.Weeks.Where(w => w.Start >= selectedWeek.Start).ToList())
+            //    {
+            //        var progress = new Progress(week, goal);
+            //        _ctx.Add(progress);
+            //    }
+            //    _ctx.SaveChanges();
 
-                return RedirectToAction(nameof(Index));
-            }
-            return View(nameof(Index));
+            //    return RedirectToAction(nameof(Index));
+            //}
+            //return View(nameof(Index));
+            return Ok();
         }
 
         [HttpGet]

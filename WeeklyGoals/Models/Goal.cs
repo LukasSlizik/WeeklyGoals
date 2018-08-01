@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
+using System.Runtime.Serialization;
 
 namespace WeeklyGoals.Models
 {
@@ -11,21 +12,27 @@ namespace WeeklyGoals.Models
 
         [Required]
         [StringLength(20,MinimumLength = 2)]
+        [DataMember(Name = "name")]
         public string Name { get; set; }
         
         [Required]
+        [DataMember(Name = "description")]
         public string Description { get; set; }
 
         [Required]
+        [DataMember(Name = "weeklyTarget")]
         public int WeeklyTarget { get; set;}
 
         [Required]
+        [DataMember(Name = "stepSize")]
         public int StepSize { get; set; }
 
         [Required]
+        [DataMember(Name = "unit")]
         public string Unit { get; set; }
 
         [Required]
+        [DataMember(Name = "factor")]
         public int Factor { get; set; }
 
         public ICollection<Progress> Progress { get; set; }
