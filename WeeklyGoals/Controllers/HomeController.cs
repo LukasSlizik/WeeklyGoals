@@ -56,28 +56,14 @@ namespace WeeklyGoals.Controllers
         [HttpPost]
         public IActionResult Create([FromBody]Goal goal)
         {
-            //if (ModelState.IsValid)
-            //{
-            //    // get and check the selected Week
-            //    var weekId = (int)TempData["weekId"];
-            //    var selectedWeek = _ctx.Weeks.SingleOrDefault(w => w.Id == weekId);
-            //    if (selectedWeek == null)
-            //        return NotFound();
+            if (ModelState.IsValid)
+            {
+                _ctx.Goals.Add(goal);
+                _ctx.SaveChanges();
+                return Ok();
+            }
 
-            //    var entity = _ctx.Add(goal);
-
-            //    // add new progress from the selected Week on
-            //    foreach (var week in _ctx.Weeks.Where(w => w.Start >= selectedWeek.Start).ToList())
-            //    {
-            //        var progress = new Progress(week, goal);
-            //        _ctx.Add(progress);
-            //    }
-            //    _ctx.SaveChanges();
-
-            //    return RedirectToAction(nameof(Index));
-            //}
-            //return View(nameof(Index));
-            return Ok();
+            return BadRequest(ModelState);
         }
 
         [HttpGet]
