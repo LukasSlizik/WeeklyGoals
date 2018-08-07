@@ -41,17 +41,6 @@ namespace WeeklyGoals.Controllers
             return SignOut(new AuthenticationProperties { RedirectUri = Url.Action(nameof(Index)) }, CookieAuthenticationDefaults.AuthenticationScheme, OpenIdConnectDefaults.AuthenticationScheme);
         }
 
-        // GET: Goals/Create/2
-        [HttpGet]
-        public IActionResult Create(int? selectedWeekId)
-        {
-            if (selectedWeekId == null)
-                return NotFound();
-
-            TempData["weekId"] = selectedWeekId.Value;
-            return View();
-        }
-
         // POST: Goals/Create
         [HttpPost]
         public IActionResult Create([FromBody]Goal goal)

@@ -11,9 +11,10 @@ using WeeklyGoals.Models;
 namespace WeeklyGoals.Migrations
 {
     [DbContext(typeof(GoalsContext))]
-    partial class GoalsContextModelSnapshot : ModelSnapshot
+    [Migration("20180806192313_CalendarValue")]
+    partial class CalendarValue
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,6 +26,8 @@ namespace WeeklyGoals.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<DateTime>("CalendarValue");
+
                     b.Property<string>("Description")
                         .IsRequired();
 
@@ -33,9 +36,6 @@ namespace WeeklyGoals.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(20);
-
-                    b.Property<string>("StartingWeek")
-                        .IsRequired();
 
                     b.Property<int>("StepSize");
 

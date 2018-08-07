@@ -14,6 +14,7 @@ export class GoalComponent {
     unit: string;
     weeklyTarget: number;
     factor: number;
+    startingWeek: string;
 
     constructor(private _progressSvc: ProgressService) { }
 
@@ -22,7 +23,7 @@ export class GoalComponent {
     }
 
     public createGoal() {
-        var goal = new Goal(this.name, this.description, this.stepSize, this.unit, this.weeklyTarget, this.factor)
+        var goal = new Goal(this.name, this.description, this.stepSize, this.unit, this.weeklyTarget, this.factor, this.startingWeek)
         this._progressSvc.createNewGoal(goal);
     }
 }

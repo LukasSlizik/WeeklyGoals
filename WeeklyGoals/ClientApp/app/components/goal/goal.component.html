@@ -24,6 +24,11 @@
             <label class="control-label">factor</label>
             <input class="form-control" type="number" [(ngModel)]='factor' />
         </div>
+        <div>
+            <label class="control-label">What week would you like to start?</label>
+            <input class="form-control" type="week" [(ngModel)]='startingWeek' />
+        </div>
+
     </div>
 </div>
 <a class="btn btn-default" (click)='createGoal()'>Create Goal</a>

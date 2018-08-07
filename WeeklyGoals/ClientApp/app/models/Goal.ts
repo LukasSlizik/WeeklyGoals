@@ -6,6 +6,7 @@
         public stepSize: number,
         public unit: string,
         public weeklyTarget: number,
-        public factor: number)
+        public factor: number,
+        public startingWeek: string)
     { }
 }

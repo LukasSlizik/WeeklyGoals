@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Runtime.Serialization;
@@ -34,6 +35,10 @@ namespace WeeklyGoals.Models
         [Required]
         [DataMember(Name = "factor")]
         public int Factor { get; set; }
+
+        [Required]
+        [DataMember(Name = "startingWeek")]
+        public string StartingWeek { get; set; }
 
         public ICollection<Progress> Progress { get; set; }
 
