@@ -9,7 +9,6 @@ namespace WeeklyGoals.Models
         }
 
         public DbSet<Goal> Goals { get; set; }
-        public DbSet<Week> Weeks { get; set; }
         public DbSet<Progress> Progress { get; set; }
     }
 }

@@ -11,9 +11,10 @@ using WeeklyGoals.Models;
 namespace WeeklyGoals.Migrations
 {
     [DbContext(typeof(GoalsContext))]
-    partial class GoalsContextModelSnapshot : ModelSnapshot
+    [Migration("20180811170904_YearAdnWeekAddedToProgress")]
+    partial class YearAdnWeekAddedToProgress
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -61,13 +62,31 @@ namespace WeeklyGoals.Migrations
 
                     b.Property<int>("Week");
 
+                    b.Property<int?>("WeekId");
+
                     b.Property<int>("Year");
 
                     b.HasKey("Id");
 
                     b.HasIndex("GoalId");
 
+                    b.HasIndex("WeekId");
+
                     b.ToTable("Progress");
+                });
+
+            modelBuilder.Entity("WeeklyGoals.Models.Week", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("End");
+
+                    b.Property<DateTime>("Start");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Weeks");
                 });
 
             modelBuilder.Entity("WeeklyGoals.Models.Progress", b =>
@@ -75,6 +94,10 @@ namespace WeeklyGoals.Migrations
                     b.HasOne("WeeklyGoals.Models.Goal", "Goal")
                         .WithMany("Progress")
                         .HasForeignKey("GoalId");
+
+                    b.HasOne("WeeklyGoals.Models.Week")
+                        .WithMany("Progress")
+                        .HasForeignKey("WeekId");
                 });
 #pragma warning restore 612, 618
         }

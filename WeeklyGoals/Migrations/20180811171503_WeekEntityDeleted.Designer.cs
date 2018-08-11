@@ -11,9 +11,10 @@ using WeeklyGoals.Models;
 namespace WeeklyGoals.Migrations
 {
     [DbContext(typeof(GoalsContext))]
-    partial class GoalsContextModelSnapshot : ModelSnapshot
+    [Migration("20180811171503_WeekEntityDeleted")]
+    partial class WeekEntityDeleted
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

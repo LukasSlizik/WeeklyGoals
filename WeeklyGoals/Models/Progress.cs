@@ -7,21 +7,24 @@ namespace WeeklyGoals.Models
     public class Progress
     {
         public int Id { get; set; }
-        public Week Week { get; set; }
         public Goal Goal { get; set; }
+
+        public int Week { get; set; }
+        public int Year { get; set; }
 
         [Required]
         public double Points { get; set; }
 
         public Progress() { }
 
-        public Progress(Week week, Goal goal) : this()
+        public Progress(int year, int week, Goal goal) : this()
         {
+            Year = year;
             Week = week;
             Goal = goal;
         }
 
-        public Progress(Week week, Goal goal, double points) : this(week, goal)
+        public Progress(int year, int week, Goal goal, double points) : this(year, week, goal)
         {
             Points = points;
         }

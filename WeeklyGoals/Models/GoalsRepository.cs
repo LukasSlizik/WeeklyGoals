@@ -12,9 +12,6 @@ namespace WeeklyGoals.Models
 
         IEnumerable<Progress> GetAllProgress();
         Progress GetProgressById(int id);
-
-        IEnumerable<Week> GetAllWeeks();
-        Week GetWeekById(int id);
     }
 
     internal class GoalsRepository : IGoalsRepository
@@ -29,22 +26,12 @@ namespace WeeklyGoals.Models
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Week> GetAllWeeks()
-        {
-            throw new NotImplementedException();
-        }
-
         public Goal GetGoalById(int id)
         {
             throw new NotImplementedException();
         }
 
         public Progress GetProgressById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Week GetWeekById(int id)
         {
             throw new NotImplementedException();
         }

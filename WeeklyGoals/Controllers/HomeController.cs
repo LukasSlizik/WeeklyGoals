@@ -59,7 +59,7 @@ namespace WeeklyGoals.Controllers
         [AllowAnonymous]
         public IActionResult Index()
         {
-            return View(GetViewModel("1"));
+            return View();
         }
 
         [HttpGet]
@@ -87,25 +87,6 @@ namespace WeeklyGoals.Controllers
             //}).ToList();
 
             return Ok(viewModels);
-        }
-
-        private MainViewModel GetViewModel(string SelectedWeek)
-        {
-            if (!int.TryParse(SelectedWeek, out int id))
-                return null;
-
-            var weeks = _ctx.Weeks.Include(w => w.Progress)
-                                  .ThenInclude(p => p.Goal)
-                                  .ToList();
-
-            var selectedWeek = weeks.SingleOrDefault(w => w.Id.Equals(id));
-            selectedWeek.Progress = selectedWeek.Progress.OrderBy(p => p.Id).ToList();
-
-            if (selectedWeek == null)
-                return null;
-
-            var vm = new MainViewModel(new SelectList(weeks), selectedWeek);
-            return vm;
         }
 
         [HttpGet]
@@ -162,21 +143,21 @@ namespace WeeklyGoals.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Delete(int id)
         {
-            var progress = _ctx.Progress.Include(p => p.Goal)
-                                        .Include(p => p.Week)
-                                        .Single(p => p.Id == id);
+            //var progress = _ctx.Progress.Include(p => p.Goal)
+            //                            .Include(p => p.Week)
+            //                            .Single(p => p.Id == id);
 
-            var goalToRemove = progress.Goal;
-            var startingWeek = progress.Week;
+            //var goalToRemove = progress.Goal;
+            //var startingWeek = progress.Week;
 
-            // select all progress with this goal from this week on.
-            var progressToDelete = _ctx.Progress.Include(p => p.Goal)
-                                                .Include(p => p.Week)
-                                                .Where(p => p.Goal.Id == goalToRemove.Id)
-                                                .Where(p => p.Week.Start >= startingWeek.Start);
+            //// select all progress with this goal from this week on.
+            //var progressToDelete = _ctx.Progress.Include(p => p.Goal)
+            //                                    .Include(p => p.Week)
+            //                                    .Where(p => p.Goal.Id == goalToRemove.Id)
+            //                                    .Where(p => p.Week.Start >= startingWeek.Start);
 
-            _ctx.Progress.RemoveRange(progressToDelete);
-            _ctx.SaveChanges();
+            //_ctx.Progress.RemoveRange(progressToDelete);
+            //_ctx.SaveChanges();
 
             return RedirectToAction(nameof(Index));
         }
