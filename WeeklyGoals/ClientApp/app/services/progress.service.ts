@@ -4,6 +4,7 @@ import { IProgress } from "../models/IProgress";
 import { Observable } from 'rxjs/Observable';
 import { HttpParams } from "@angular/common/http";
 import { Goal } from "../models/Goal";
+import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class ProgressService {
