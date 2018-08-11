@@ -24,6 +24,7 @@
     <None Remove="ClientApp\app\components\goal\goal.component.ts" />
     <None Remove="ClientApp\app\components\progline\progline.component.ts" />
     <None Remove="ClientApp\app\components\progtable\IProduct.ts" />
+    <None Remove="ClientApp\app\helpers\progressHelper.ts" />
     <None Remove="ClientApp\app\models\Goal.ts" />
     <None Remove="ClientApp\app\models\IProduct.ts" />
     <None Remove="ClientApp\app\models\IProgress.ts" />
@@ -33,6 +34,7 @@
     <TypeScriptCompile Include="ClientApp\app\components\goal\goal.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\progline\progline.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\progtable\progtable.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\helpers\progressHelper.ts" />
     <TypeScriptCompile Include="ClientApp\app\models\Goal.ts" />
     <TypeScriptCompile Include="ClientApp\app\models\IProgress.ts" />
     <TypeScriptCompile Include="ClientApp\app\services\progress.service.ts" />

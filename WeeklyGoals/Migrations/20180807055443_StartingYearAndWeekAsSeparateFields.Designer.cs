@@ -11,9 +11,10 @@ using WeeklyGoals.Models;
 namespace WeeklyGoals.Migrations
 {
     [DbContext(typeof(GoalsContext))]
-    partial class GoalsContextModelSnapshot : ModelSnapshot
+    [Migration("20180807055443_StartingYearAndWeekAsSeparateFields")]
+    partial class StartingYearAndWeekAsSeparateFields
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

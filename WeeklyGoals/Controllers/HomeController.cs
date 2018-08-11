@@ -63,28 +63,28 @@ namespace WeeklyGoals.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetProgressForWeek(int weekId)
+        public IActionResult GetProgressForWeek(string year, string week)
         {
             var viewModels = new List<ProgressViewModel>();
-            var progress = _ctx.Progress
-                                        .Include(p => p.Goal)
-                                        .Include(p => p.Week)
-                                        .Where(p => p.Week.Id == weekId);
+            //var progress = _ctx.Progress
+            //                            .Include(p => p.Goal)
+            //                            .Include(p => p.Week)
+            //                            .Where(p => p.Week.Id == weekId);
 
-            if (progress == null || !progress.Any())
-                return NotFound();
+            //if (progress == null || !progress.Any())
+            //    return NotFound();
 
-            viewModels = progress.Select(p => new ProgressViewModel()
-            {
-                Id = p.Id,
-                Description = p.Goal.Description,
-                GoalName = p.Goal.Name,
-                Points = p.Points,
-                StepSize = p.Goal.StepSize,
-                Target = p.Goal.WeeklyTarget,
-                Unit = p.Goal.Unit,
-                Factor = p.Goal.Factor
-            }).ToList();
+            //viewModels = progress.Select(p => new ProgressViewModel()
+            //{
+            //    Id = p.Id,
+            //    Description = p.Goal.Description,
+            //    GoalName = p.Goal.Name,
+            //    Points = p.Points,
+            //    StepSize = p.Goal.StepSize,
+            //    Target = p.Goal.WeeklyTarget,
+            //    Unit = p.Goal.Unit,
+            //    Factor = p.Goal.Factor
+            //}).ToList();
 
             return Ok(viewModels);
         }

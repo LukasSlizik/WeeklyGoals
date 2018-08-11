@@ -7,6 +7,7 @@
         public unit: string,
         public weeklyTarget: number,
         public factor: number,
-        public startingWeek: string)
+        public startingYear: number,
+        public startingWeek: number)
     { }
 }

@@ -36,9 +36,11 @@ namespace WeeklyGoals.Models
         [DataMember(Name = "factor")]
         public int Factor { get; set; }
 
-        [Required]
+        [DataMember(Name = "startingYear")]
+        public int StartingYear { get; set; }
+
         [DataMember(Name = "startingWeek")]
-        public string StartingWeek { get; set; }
+        public int StartingWeek { get; set; }
 
         public ICollection<Progress> Progress { get; set; }
 

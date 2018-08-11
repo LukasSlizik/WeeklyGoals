@@ -1,6 +1,7 @@
 ﻿import { ProgressService } from "../../services/progress.service";
 import { Component } from "@angular/core";
 import { Goal } from "../../models/Goal"
+import { ProgressHelper } from "../../helpers/progressHelper";
 
 @Component({
     selector: 'goal',
@@ -14,16 +15,21 @@ export class GoalComponent {
     unit: string;
     weeklyTarget: number;
     factor: number;
-    startingWeek: string;
+    startingDate: string;
 
     constructor(private _progressSvc: ProgressService) { }
 
-    ngOnInit(): void {
-
-    }
-
     public createGoal() {
-        var goal = new Goal(this.name, this.description, this.stepSize, this.unit, this.weeklyTarget, this.factor, this.startingWeek)
+        var parsedDate = ProgressHelper.parseHtmlWeek(this.startingDate);
+        var goal = new Goal(
+            this.name,
+            this.description,
+            this.stepSize,
+            this.unit,
+            this.weeklyTarget,
+            this.factor,
+            parsedDate.year,
+            parsedDate.week)
         this._progressSvc.createNewGoal(goal);
     }
 }

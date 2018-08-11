@@ -12,8 +12,8 @@ export class ProgressService {
 
     constructor(private _httpClient: HttpClient) { }
 
-    getAllProgressForWeek(weekId: number): Observable<IProgress[]> {
-        return this._httpClient.get<IProgress[]>(this._progressUrl, { params: new HttpParams().set('weekId', weekId.toString()) })
+    getAllProgressForWeek(year:number, week: number): Observable<IProgress[]> {
+        return this._httpClient.get<IProgress[]>(this._progressUrl, { params: new HttpParams().set('year', year.toString()).set('week', week.toString()) })
             .catch(this.handleError)
     }
 
