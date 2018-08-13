@@ -19,6 +19,10 @@ export class GoalComponent {
 
     constructor(private _progressSvc: ProgressService) { }
 
+    ngOnInit(): void {
+        this.startingDate = ProgressHelper.convertDateToHtmlInputFormat(new Date());
+    }
+
     public createGoal() {
         var parsedDate = ProgressHelper.parseHtmlWeek(this.startingDate);
         var goal = new Goal(

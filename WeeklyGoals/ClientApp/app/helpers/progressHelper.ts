@@ -41,4 +41,21 @@
         return weekNo;
     }
 
+    // returns the date in the format needed by the html <input type='week' /> tag.
+    public static convertDateToHtmlInputFormat(date: Date): string {
+        var currentYear = date.getFullYear();
+        var currentWeek = ProgressHelper.getWeekOfTheYear(date);
+
+        // formatting needed for html tag - <input type='week' />
+        return `${currentYear}-W${this.pad(currentWeek, 2)}`;
+    }
+
+    // Returns a new string of a specified length in which the beginning of the number is padded with zeros.
+    private static pad(number: number, length: number): string {
+        var s = number.toString();
+        while (s.length < length)
+            s = "0" + s;
+        return s;
+    }
+
 }

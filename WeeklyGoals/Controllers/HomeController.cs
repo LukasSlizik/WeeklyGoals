@@ -65,12 +65,18 @@ namespace WeeklyGoals.Controllers
         [HttpGet]
         public IActionResult GetProgressForWeek(string year, string week)
         {
+            var yearAsInt = Int32.Parse(year);
+            var weekAsInt = Int32.Parse(week);
+
             var viewModels = new List<ProgressViewModel>();
-            var progress = _ctx.Progress.Include(p => p.Goal)
-                                        .Where(p => p.Year.ToString() == year && p.Week.ToString() == week);
+            var progress = _ctx.Progress.Include(p => p.Goal).Where(p => p.Year == yearAsInt && p.Week == weekAsInt).ToList();
 
             if (progress == null || !progress.Any())
-                return NotFound();
+            {
+                CreateProgressForWeek(yearAsInt, weekAsInt);
+                progress = _ctx.Progress.Include(p => p.Goal)
+                .Where(p => p.Year == yearAsInt && p.Week == weekAsInt).ToList();
+            }
 
             viewModels = progress.Select(p => new ProgressViewModel()
             {
@@ -85,6 +91,13 @@ namespace WeeklyGoals.Controllers
             }).ToList();
 
             return Ok(viewModels);
+        }
+
+        private void CreateProgressForWeek(int year, int week)
+        {
+            var allRelevantGoals = _ctx.Goals.Where(g => g.StartingYear < year || (g.StartingYear == year && g.StartingWeek <= week)).ToList();
+            allRelevantGoals.ForEach(g => _ctx.Progress.Add(new Progress(year, week, g)));
+            _ctx.SaveChanges();
         }
 
         [HttpGet]
