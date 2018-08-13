@@ -3,7 +3,7 @@ using System.Diagnostics;
 
 namespace WeeklyGoals.Models
 {
-    [DebuggerDisplay("Id:{Id}, Week:{Week}, Goal:{Goal}, Points:{Points}, ActualPoints:{ActualPoints}")]
+    [DebuggerDisplay("Id:{Id}, Year: {Year}, Week:{Week}, Goal:{Goal}, Points:{Points}, ActualPoints:{ActualPoints}")]
     public class Progress
     {
         public int Id { get; set; }
