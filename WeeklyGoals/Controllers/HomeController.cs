@@ -62,23 +62,23 @@ namespace WeeklyGoals.Controllers
             return View();
         }
 
-        [HttpGet]
-        public IActionResult GetProgressForWeek(string year, string week)
+        // returns all progress records for the specified week
+        private IEnumerable<Progress> GetAllProgressForWeek(int year, int week)
         {
-            var yearAsInt = Int32.Parse(year);
-            var weekAsInt = Int32.Parse(week);
+            return _ctx.Progress.Include(p => p.Goal).Where(p => p.Year == year && p.Week == week);
+        }
 
+        // returns all goals for the specified week
+        private IEnumerable<Goal> GetAllGoalsForWeek(int year, int week)
+        {
+            return _ctx.Goals.Where(g => g.StartingYear < year || (g.StartingYear == year && g.StartingWeek <= week));
+        }
+
+        // converts the list of progress entities to list of progress ViewModels
+        private IEnumerable<ProgressViewModel> MapToProgressViewModels(IEnumerable<Progress> allProgress)
+        {
             var viewModels = new List<ProgressViewModel>();
-            var progress = _ctx.Progress.Include(p => p.Goal).Where(p => p.Year == yearAsInt && p.Week == weekAsInt).ToList();
-
-            if (progress == null || !progress.Any())
-            {
-                CreateProgressForWeek(yearAsInt, weekAsInt);
-                progress = _ctx.Progress.Include(p => p.Goal)
-                .Where(p => p.Year == yearAsInt && p.Week == weekAsInt).ToList();
-            }
-
-            viewModels = progress.Select(p => new ProgressViewModel()
+            viewModels = allProgress.Select(p => new ProgressViewModel()
             {
                 Id = p.Id,
                 Description = p.Goal.Description,
@@ -90,14 +90,31 @@ namespace WeeklyGoals.Controllers
                 Factor = p.Goal.Factor
             }).ToList();
 
-            return Ok(viewModels);
+            return viewModels;
         }
 
-        private void CreateProgressForWeek(int year, int week)
+        /// <summary>
+        /// Returns all progress records for the specified week. Missing goals will be automatically inserted to the db.
+        /// </summary>
+        [HttpGet]
+        public IActionResult GetProgressForWeek(string year, string week)
         {
-            var allRelevantGoals = _ctx.Goals.Where(g => g.StartingYear < year || (g.StartingYear == year && g.StartingWeek <= week)).ToList();
-            allRelevantGoals.ForEach(g => _ctx.Progress.Add(new Progress(year, week, g)));
+            var yearAsInt = Int32.Parse(year);
+            var weekAsInt = Int32.Parse(week);
+
+            // get records from the db
+            var allProgressForWeek = GetAllProgressForWeek(yearAsInt, weekAsInt).ToList();
+            var allGoalsForWeek = GetAllGoalsForWeek(yearAsInt, weekAsInt).ToList();
+
+            // get all goals that are not yet in the progress for the actual week
+            var missingGoals = allGoalsForWeek.Except(allProgressForWeek.Select(p => p.Goal)).ToList();
+            missingGoals.ForEach(goal => _ctx.Progress.Add(new Progress(yearAsInt, weekAsInt, goal)));
+
+            // save all the missing goals in the actul progress and load the progress once again
             _ctx.SaveChanges();
+            allProgressForWeek = GetAllProgressForWeek(yearAsInt, weekAsInt).ToList();
+
+            return Ok(MapToProgressViewModels(allProgressForWeek));
         }
 
         [HttpGet]
