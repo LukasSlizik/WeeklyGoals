@@ -12,8 +12,15 @@ import { HttpClient, HttpErrorResponse, HttpParams } from "@angular/common/http"
 export class ProglineComponent {
     @Input('progline') progress: IProgress;
 
-
     constructor(private _progressSvc: ProgressService) {
+    }
+
+    ngOnInit(): void {
+        this.progress.actualPoints = this.getActualPoints();
+    }
+
+    private getActualPoints(): number {
+        return (this.progress.points / this.progress.target) * this.progress.factor;
     }
 
     public step($event: any): void {
@@ -30,6 +37,7 @@ export class ProglineComponent {
                 console.log("invalid value: " + id);
         }
 
+        this.progress.actualPoints = this.getActualPoints();
         this._progressSvc.updateProgress(this.progress.id, this.progress.points);
     }
 }

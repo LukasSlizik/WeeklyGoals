@@ -127,29 +127,6 @@ namespace WeeklyGoals.Controllers
             return Ok();
         }
 
-        [HttpGet]
-        public IActionResult UpdateProgress1(int? id, int multiplicator)
-        {
-            if (id == null)
-                return NotFound();
-
-            var progress = _ctx.Progress.Include(p => p.Goal).Single(p => p.Id.Equals(id));
-            if (progress == null)
-                return NotFound();
-
-            var goal = _ctx.Goals.Single(g => g.Id.Equals(progress.Goal.Id));
-            if (goal == null)
-                return NotFound();
-
-            var delta = goal.StepSize * multiplicator;
-            progress.Points += delta;
-
-            var total = (progress.Points / progress.Goal.WeeklyTarget) * progress.Goal.Factor;
-
-            _ctx.SaveChanges();
-            return Ok(new { points = progress.Points, unit = progress.Goal.Unit, total = total });
-        }
-
         // GET: /Home/Delete/1
         [HttpGet]
         public IActionResult Delete(int? progressId)
