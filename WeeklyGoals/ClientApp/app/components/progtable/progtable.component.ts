@@ -15,6 +15,7 @@ export class ProgtableComponent {
 
     progress: IProgress[];
     selectedWeek: string;
+    summary: number;
 
     constructor(private _progressSvc: ProgressService) { }
 
@@ -27,18 +28,30 @@ export class ProgtableComponent {
 
         this._progressSvc.getAllProgressForWeek(currentYear, currentWeek).subscribe(progress => {
             this.progress = progress;
+            this.calculateSummary();
         });
     }
 
+    public calculateSummary(): void {
+        this.summary = 0;
+        for (let p of this.progress) {
+            this.summary += (p.points / p.target) * p.factor;
+        }
+    }
 
+    public onUpdateProgress(progress: IProgress)
+    {
+        this.calculateSummary();
+    }
 
     private weekSelected(): void {
         var parsedDate = ProgressHelper.parseHtmlWeek(this.selectedWeek);
 
         this._progressSvc.getAllProgressForWeek(parsedDate.year, parsedDate.week).subscribe(progress => {
             this.progress = progress;
+
+            this.calculateSummary();
         });
     }
-
 
 }

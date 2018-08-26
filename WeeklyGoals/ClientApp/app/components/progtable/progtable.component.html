@@ -20,6 +20,17 @@
         </tr>
     </thead>
     <tbody>
-        <tr progline *ngFor='let p of progress' [progline]="p"></tr>
+        <tr progline *ngFor='let p of progress' [progline]="p" (updateProgress)="onUpdateProgress($event)"></tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>{{summary}}</td>
+        </tr>
     </tbody>
 </table>

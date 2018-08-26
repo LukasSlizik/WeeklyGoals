@@ -1,4 +1,4 @@
-﻿import { Component, Input } from '@angular/core';
+﻿import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { ProgressService } from "../../services/progress.service";
 import { IProgress } from "../../models/IProgress";
 import { HttpClient, HttpErrorResponse, HttpParams } from "@angular/common/http";
@@ -11,6 +11,7 @@ import { HttpClient, HttpErrorResponse, HttpParams } from "@angular/common/http"
 
 export class ProglineComponent {
     @Input('progline') progress: IProgress;
+    @Output() updateProgress = new EventEmitter<IProgress>();
 
     constructor(private _progressSvc: ProgressService) {
     }
@@ -39,5 +40,6 @@ export class ProglineComponent {
 
         this.progress.actualPoints = this.getActualPoints();
         this._progressSvc.updateProgress(this.progress.id, this.progress.points);
+        this.updateProgress.emit(this.progress);
     }
 }
