@@ -14,8 +14,8 @@ import { ProgressHelper } from "../../helpers/progressHelper";
 export class ProgtableComponent {
 
     progress: IProgress[];
+    summaryProgress: IProgress = this.getSummaryProgress();
     selectedWeek: string;
-    summary: number;
 
     constructor(private _progressSvc: ProgressService) { }
 
@@ -26,32 +26,43 @@ export class ProgtableComponent {
         var currentYear = currentDate.getFullYear();
         var currentWeek = ProgressHelper.getWeekOfTheYear(currentDate);
 
-        this._progressSvc.getAllProgressForWeek(currentYear, currentWeek).subscribe(progress => {
+        this.setProgress(currentYear, currentWeek);
+    }
+
+    private setProgress(year: number, week: number)
+    {
+        this._progressSvc.getAllProgressForWeek(year, week).subscribe(progress => {
             this.progress = progress;
+            this.progress.push(this.summaryProgress);
             this.calculateSummary();
         });
     }
 
     public calculateSummary(): void {
-        this.summary = 0;
-        for (let p of this.progress) {
-            this.summary += (p.points / p.target) * p.factor;
+        var summary = 0;
+
+        for (let p of this.progress.filter(prog => prog.isSummary != true)) {
+            summary += (p.points / p.target) * p.factor;
         }
+
+        this.summaryProgress.actualPoints = summary;
     }
 
-    public onUpdateProgress(progress: IProgress)
-    {
+    public onUpdateProgress(progress: IProgress) {
         this.calculateSummary();
+    }
+
+    private getSummaryProgress(): IProgress {
+        var p = new IProgress();
+        p.actualPoints = -1;
+        p.isSummary = true;
+
+        return p;
     }
 
     private weekSelected(): void {
         var parsedDate = ProgressHelper.parseHtmlWeek(this.selectedWeek);
-
-        this._progressSvc.getAllProgressForWeek(parsedDate.year, parsedDate.week).subscribe(progress => {
-            this.progress = progress;
-
-            this.calculateSummary();
-        });
+        this.setProgress(parsedDate.year, parsedDate.week);
     }
 
 }

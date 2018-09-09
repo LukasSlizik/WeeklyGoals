@@ -17,7 +17,9 @@ export class ProglineComponent {
     }
 
     ngOnInit(): void {
-        this.progress.actualPoints = this.getActualPoints();
+        // do not update the summary line
+        if (!this.progress.isSummary)
+            this.progress.actualPoints = this.getActualPoints();
     }
 
     private getActualPoints(): number {

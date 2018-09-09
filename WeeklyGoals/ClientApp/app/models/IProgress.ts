@@ -1,4 +1,4 @@
-﻿export interface IProgress {
+﻿export class IProgress {
     id: number;
     goalName: string;
     description: string;
@@ -9,4 +9,5 @@
     progress: number;
     points: number;
     actualPoints: number;
+    isSummary: boolean = false;
 }
