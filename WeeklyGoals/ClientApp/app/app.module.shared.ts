@@ -11,6 +11,7 @@ import { ProglineComponent } from './components/progline/progline.component';
 import { GoalComponent } from './components/goal/goal.component';
 import { EditgoalComponent } from './components/edit/editGoal.component';
 import { ProgressService } from "./services/progress.service";
+import { GoalService } from "./services/goal.service";
 
 @NgModule({
     declarations: [
@@ -36,7 +37,8 @@ import { ProgressService } from "./services/progress.service";
         ])
     ],
     providers: [
-        ProgressService
+        ProgressService,
+        GoalService
     ]
 })
 export class AppModuleShared {

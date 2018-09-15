@@ -29,6 +29,7 @@
     <None Remove="ClientApp\app\models\Goal.ts" />
     <None Remove="ClientApp\app\models\IProduct.ts" />
     <None Remove="ClientApp\app\models\IProgress.ts" />
+    <None Remove="ClientApp\app\services\goal.service.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -39,6 +40,7 @@
     <TypeScriptCompile Include="ClientApp\app\helpers\progressHelper.ts" />
     <TypeScriptCompile Include="ClientApp\app\models\Goal.ts" />
     <TypeScriptCompile Include="ClientApp\app\models\IProgress.ts" />
+    <TypeScriptCompile Include="ClientApp\app\services\goal.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\services\progress.service.ts" />
   </ItemGroup>
 

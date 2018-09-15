@@ -94,6 +94,15 @@ namespace WeeklyGoals.Controllers
         }
 
         /// <summary>
+        /// Returns all goals.
+        /// </summary>
+        [HttpGet]
+        public IActionResult GetAllGoals()
+        {
+            return Ok(_ctx.Goals);
+        }
+
+        /// <summary>
         /// Returns all progress records for the specified week. Missing goals will be automatically inserted to the db.
         /// </summary>
         [HttpGet]
