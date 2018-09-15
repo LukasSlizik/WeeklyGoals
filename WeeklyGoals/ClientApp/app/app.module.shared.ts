@@ -9,6 +9,7 @@ import { NavMenuComponent } from './components/navmenu/navmenu.component';
 import { ProgtableComponent } from './components/progtable/progtable.component';
 import { ProglineComponent } from './components/progline/progline.component';
 import { GoalComponent } from './components/goal/goal.component';
+import { EditgoalComponent } from './components/edit/editGoal.component';
 import { ProgressService } from "./services/progress.service";
 
 @NgModule({
@@ -17,7 +18,8 @@ import { ProgressService } from "./services/progress.service";
         NavMenuComponent,
         ProgtableComponent,
         ProglineComponent,
-        GoalComponent
+        GoalComponent,
+        EditgoalComponent
     ],
     imports: [
         CommonModule,
@@ -29,6 +31,7 @@ import { ProgressService } from "./services/progress.service";
             { path: 'progtable', component: ProgtableComponent },
             { path: 'progline', component: ProglineComponent },
             { path: 'goal', component: GoalComponent },
+            { path: 'edit', component: EditgoalComponent },
             { path: '**', redirectTo: 'progtable' }
         ])
     ],
