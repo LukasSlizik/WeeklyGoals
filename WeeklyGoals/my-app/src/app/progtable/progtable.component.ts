@@ -8,9 +8,8 @@ import { ProgressHelper } from "../helpers/progress-helper";
 
 @Component({
   selector: 'progtable',
-  templateUrl: './progtable.component.html'
+  templateUrl: './progtable.component.html',
 })
-
 export class ProgtableComponent {
 
   progress: Progress[];
