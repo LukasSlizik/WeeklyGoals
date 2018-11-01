@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="my-app\" />
     <Folder Include="wwwroot\css\" />
   </ItemGroup>
 
