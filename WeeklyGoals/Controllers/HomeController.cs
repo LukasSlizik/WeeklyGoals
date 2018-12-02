@@ -27,6 +27,7 @@ namespace WeeklyGoals.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Login()
         {
             // challenge the user by logging in with OIDC server 
@@ -59,7 +60,7 @@ namespace WeeklyGoals.Controllers
         [AllowAnonymous]
         public IActionResult Index()
         {
-            return View();
+            return Ok("Hello from Index");
         }
 
         // returns all progress records for the specified week
