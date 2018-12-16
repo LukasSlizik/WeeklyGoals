@@ -7,11 +7,15 @@ import { AppComponent } from './app.component';
 import { NavMenuComponent } from './navmenu/navmenu.component';
 import { ProgressService } from './services/progress.service';
 import { GoalService } from './services/goal.service';
+import { OverviewComponent } from './overview/overview.component';
+import { ProgtableComponent } from './progtable/progtable.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavMenuComponent
+    NavMenuComponent,
+    OverviewComponent,
+    ProgtableComponent
   ],
   imports: [
     BrowserModule,

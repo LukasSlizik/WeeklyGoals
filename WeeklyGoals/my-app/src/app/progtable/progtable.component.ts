@@ -1,16 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { ProgressService } from "../services/progress.service";
-import { HttpClient, HttpErrorResponse, HttpParams } from "@angular/common/http";
-import { Http } from "@angular/http";
-import { Progress } from "../models/Progress";
-import { Observable } from 'rxjs';
-import { ProgressHelper } from "../helpers/progress-helper";
+import { ProgressService } from '../services/progress.service';
+import { Progress } from '../models/Progress';
+import { ProgressHelper } from '../helpers/progress-helper';
 
 @Component({
-  selector: 'progtable',
+  selector: 'app-progtable',
   templateUrl: './progtable.component.html',
 })
-export class ProgtableComponent {
+export class ProgtableComponent implements OnInit {
 
   progress: Progress[];
   summaryProgress: Progress = this.getSummaryProgress();
@@ -19,11 +16,11 @@ export class ProgtableComponent {
   constructor(private _progressSvc: ProgressService) { }
 
   ngOnInit(): void {
-    var currentDate = new Date();
+    const currentDate = new Date();
 
     this.selectedWeek = ProgressHelper.convertDateToHtmlInputFormat(currentDate);
-    var currentYear = currentDate.getFullYear();
-    var currentWeek = ProgressHelper.getWeekOfTheYear(currentDate);
+    const currentYear = currentDate.getFullYear();
+    const currentWeek = ProgressHelper.getWeekOfTheYear(currentDate);
 
     this.setProgress(currentYear, currentWeek);
   }
@@ -37,9 +34,9 @@ export class ProgtableComponent {
   }
 
   public calculateSummary(): void {
-    var summary = 0;
+    let summary = 0;
 
-    for (let p of this.progress.filter(prog => prog.isSummary != true)) {
+    for (const p of this.progress.filter(prog => prog.isSummary != true)) {
       summary += (p.points / p.target) * p.factor;
     }
 
@@ -51,7 +48,7 @@ export class ProgtableComponent {
   }
 
   private getSummaryProgress(): Progress {
-    var p = new Progress();
+    const p = new Progress();
     p.actualPoints = -1;
     p.isSummary = true;
 
@@ -59,7 +56,7 @@ export class ProgtableComponent {
   }
 
   private weekSelected(): void {
-    var parsedDate = ProgressHelper.parseHtmlWeek(this.selectedWeek);
+    const parsedDate = ProgressHelper.parseHtmlWeek(this.selectedWeek);
     this.setProgress(parsedDate.year, parsedDate.week);
   }
 
