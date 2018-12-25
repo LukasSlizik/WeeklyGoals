@@ -1,12 +1,9 @@
-<p>
-  hello from overview component
-</p>
-
-<!--<div>
+<div>
   <label>Select your week</label>
-  <input type="week" (change)="weekSelected()" />
+  <input type="week" (change)='weekChanged($event)' [(value)]='selectedDateAsWeek'/>
 </div>
 
+<!--
 <p *ngIf="!progress"><em>Loading...</em></p>
 
 <table class="table">

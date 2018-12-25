@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 
 @Component({
   selector: 'app-overview',
@@ -9,12 +9,45 @@ export class OverviewComponent implements OnInit {
 
   // progress: Progress[];
   // summaryProgress: Progress = this.getSummaryProgress();
-  // selectedWeek: string;
+  selectedDateAsWeek: string;
 
-  // constructor(private _progressSvc: ProgressService) { }
+  constructor() {
+    const today = new Date();
+    this.selectedDateAsWeek = this.getWeekAsHtml(today);
+  }
 
-  ngOnInit(): void {
-    const currentDate = new Date();
+  ngOnInit(): void { }
+
+  private weekChanged(event: any): void {
+    const selectedDate = event.target.valueAsDate;
+    this.selectedDateAsWeek = this.getWeekAsHtml(selectedDate);
+  }
+
+  private getWeekAsHtml(date: Date): string {
+    const year = date.getFullYear();
+    const week = this.getWeekOfTheYear(date);
+
+    return `${year}-W${week}`;
+  }
+
+  private getWeekOfTheYear(d: Date): number {
+    // Copy date so don't modify original
+    d = new Date(+d);
+    d.setHours(0, 0, 0);
+
+    // Set to nearest Thursday: current date + 4 - current day number
+    // Make Sunday's day number 7
+    d.setDate(d.getDate() + 4 - (d.getDay() || 7));
+
+    // Get first day of year
+    const yearStart = new Date(d.getFullYear(), 0, 1);
+
+    // Calculate full weeks to nearest Thursday
+    const weekNo = Math.ceil((((d.valueOf() - yearStart.valueOf()) / 86400000) + 1) / 7);
+
+    // Return array of year and week number
+    return weekNo;
+  }
 
   //   this.selectedWeek = ProgressHelper.convertDateToHtmlInputFormat(currentDate);
   //   const currentYear = currentDate.getFullYear();
@@ -53,9 +86,6 @@ export class OverviewComponent implements OnInit {
   //   return p;
   // }
 
-  // private weekSelected(): void {
-  //   const parsedDate = ProgressHelper.parseHtmlWeek(this.selectedWeek);
-  //   this.setProgress(parsedDate.year, parsedDate.week);
-  // }
+
 
 }
