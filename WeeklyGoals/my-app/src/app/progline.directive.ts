@@ -26,7 +26,19 @@ export class ProglineDirective implements OnInit {
     const span = document.createElement('span');
     const prog = document.createElement('progress');
 
-    td.appendChild(span).appendChild(prog);
+    const minusBtn = document.createElement('button');
+    minusBtn.innerText = '-';
+    minusBtn.addEventListener('click', (e: Event) => console.log('minus Btn clicked'));
+
+    const plusBtn = document.createElement('button');
+    plusBtn.innerText = '+';
+    plusBtn.addEventListener('click', (e: Event) => console.log('plus Btn clicked'));
+
+    span.appendChild(minusBtn);
+    span.appendChild(prog);
+    span.appendChild(plusBtn);
+
+    td.appendChild(span);
     prog.value = value;
     prog.max = max;
 
