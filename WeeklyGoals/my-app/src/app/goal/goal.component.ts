@@ -1,15 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ProgressService } from "../services/progress.service";
-import { Goal } from "../models/Goal";
-import { ProgressHelper } from "../helpers/progress-helper";
-import { FormsModule } from '@angular/forms';
+import { DataService } from '../data.service';
 
 @Component({
-  selector: 'goal',
+  selector: 'app-goal',
   templateUrl: './goal.component.html',
   styleUrls: ['./goal.component.css'],
 })
-export class GoalComponent {
+export class GoalComponent implements OnInit {
   name: string;
   description: string;
   stepSize: number;
@@ -18,25 +15,25 @@ export class GoalComponent {
   factor: number;
   startingDate: string;
 
-  constructor(private _progressSvc: ProgressService) { }
+  constructor(private _dataSvc: DataService) { }
 
   ngOnInit(): void {
-    this.startingDate = ProgressHelper.convertDateToHtmlInputFormat(new Date());
+    // this.startingDate = ProgressHelper.convertDateToHtmlInputFormat(new Date());
   }
 
   public createGoal() {
-    var parsedDate = ProgressHelper.parseHtmlWeek(this.startingDate);
-    var goal = new Goal(
-      -1,
-      this.name,
-      this.description,
-      this.stepSize,
-      this.unit,
-      this.weeklyTarget,
-      this.factor,
-      parsedDate.year,
-      parsedDate.week)
-    this._progressSvc.createNewGoal(goal);
+    // var parsedDate = ProgressHelper.parseHtmlWeek(this.startingDate);
+    // var goal = new Goal(
+    //   -1,
+    //   this.name,
+    //   this.description,
+    //   this.stepSize,
+    //   this.unit,
+    //   this.weeklyTarget,
+    //   this.factor,
+    //   parsedDate.year,
+    //   parsedDate.week)
+    // this._dataSvc.createNewGoal(goal);
   }
 
   onName() {

@@ -1,10 +1,7 @@
 <div>
   <label>Select your week</label>
-  <input type="week" (change)='weekChanged($event)' [(value)]='selectedDateAsWeek'/>
+  <input type="week" (change)='weekChanged($event)' [(value)]='selectedDateAsWeek' />
 </div>
-
-<!--
-<p *ngIf="!progress"><em>Loading...</em></p>
 
 <table class="table">
   <thead>
@@ -21,6 +18,10 @@
     </tr>
   </thead>
   <tbody>
-    <tr progline *ngFor='let p of progress' [progline]="p" (updateProgress)="onUpdateProgress($event)"></tr>
+    <!-- progress lines -->
+    <tr appProgline [allprogress]=_progress [index]=i *ngFor='let p of _progress; let i = index'></tr>
+    
+    <!-- summary line -->
+    <tr appProgline [allprogress]=_progress [index]=-1></tr>
   </tbody>
-</table>-->
+</table>

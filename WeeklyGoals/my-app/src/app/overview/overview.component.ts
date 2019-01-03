@@ -1,4 +1,6 @@
 import { Component, OnInit, HostListener } from '@angular/core';
+import { Progress } from '../models/progress';
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'app-overview',
@@ -7,16 +9,20 @@ import { Component, OnInit, HostListener } from '@angular/core';
 })
 export class OverviewComponent implements OnInit {
 
-  // progress: Progress[];
-  // summaryProgress: Progress = this.getSummaryProgress();
+  _progress: Progress[] = [];
   selectedDateAsWeek: string;
 
-  constructor() {
+  constructor(private _dataService: DataService) {
     const today = new Date();
     this.selectedDateAsWeek = this.getWeekAsHtml(today);
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this._dataService.getAllProgressForWeekDummy(1998, 12).subscribe((data) => {
+      console.log(data);
+      this._progress.push(data);
+    });
+  }
 
   private weekChanged(event: any): void {
     const selectedDate = event.target.valueAsDate;
@@ -64,15 +70,6 @@ export class OverviewComponent implements OnInit {
   //   });
   // }
 
-  // public calculateSummary(): void {
-  //   let summary = 0;
-
-  //   for (const p of this.progress.filter(prog => prog.isSummary != true)) {
-  //     summary += (p.points / p.target) * p.factor;
-  //   }
-
-  //   this.summaryProgress.actualPoints = summary;
-  // }
 
   // public onUpdateProgress(progress: Progress) {
   //   this.calculateSummary();

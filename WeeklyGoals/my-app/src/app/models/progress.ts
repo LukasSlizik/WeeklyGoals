@@ -1,4 +1,4 @@
-export class Progress {
+export interface Progress {
   id: number;
   goalName: string;
   description: string;
@@ -6,8 +6,5 @@ export class Progress {
   target: number;
   factor: number;
   unit: string;
-  progress: number;
   points: number;
-  actualPoints: number;
-  isSummary: boolean = false;
 }
