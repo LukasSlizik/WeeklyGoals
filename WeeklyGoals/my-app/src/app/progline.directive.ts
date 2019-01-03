@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Renderer2, OnInit, Input } from '@angular/core';
+import { Directive, ElementRef, Renderer2, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Progress } from './models/progress';
 
 @Directive({
@@ -11,6 +11,9 @@ export class ProglineDirective implements OnInit {
   // tslint:disable-next-line:no-input-rename
   @Input('index') index: number;
 
+  @Output() increaseEvent: EventEmitter<number> = new EventEmitter();
+  @Output() decreaseEvent: EventEmitter<number> = new EventEmitter();
+
   private appendValue(value: any) {
     const td = document.createElement('td');
     const span = document.createElement('span');
@@ -21,26 +24,30 @@ export class ProglineDirective implements OnInit {
     this.renderer.appendChild(this.el.nativeElement, td);
   }
 
-  private appendProgress(value: number, max: number) {
-    const td = document.createElement('td');
+  createProgressButton(innerText: string, listener: EventListener): HTMLButtonElement {
+    const progressBtn = document.createElement('button');
+    progressBtn.innerText = innerText;
+    progressBtn.addEventListener('click', listener);
+
+    return progressBtn;
+  }
+
+  createProgressSpan(value: number, max: number): HTMLSpanElement {
     const span = document.createElement('span');
     const prog = document.createElement('progress');
-
-    const minusBtn = document.createElement('button');
-    minusBtn.innerText = '-';
-    minusBtn.addEventListener('click', (e: Event) => console.log('minus Btn clicked'));
-
-    const plusBtn = document.createElement('button');
-    plusBtn.innerText = '+';
-    plusBtn.addEventListener('click', (e: Event) => console.log('plus Btn clicked'));
-
-    span.appendChild(minusBtn);
-    span.appendChild(prog);
-    span.appendChild(plusBtn);
-
-    td.appendChild(span);
     prog.value = value;
     prog.max = max;
+
+    span.appendChild(this.createProgressButton('-', (e: Event) => this.decreaseEvent.emit(this.index)));
+    span.appendChild(prog);
+    span.appendChild(this.createProgressButton('+', (e: Event) => this.increaseEvent.emit(this.index)));
+
+    return span;
+  }
+
+  private appendProgress(value: number, max: number) {
+    const td = document.createElement('td');
+    td.appendChild(this.createProgressSpan(value, max));
 
     this.renderer.appendChild(this.el.nativeElement, td);
   }

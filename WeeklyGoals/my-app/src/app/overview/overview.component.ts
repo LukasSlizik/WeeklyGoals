@@ -36,6 +36,16 @@ export class OverviewComponent implements OnInit {
     return `${year}-W${week}`;
   }
 
+  decrease(selIndex: number): void {
+    const selectedProgress = this._progress[selIndex];
+    console.log(`decrease: ${selectedProgress.goalName}`);
+  }
+
+  increase(selIndex: number): void {
+    const selectedProgress = this._progress[selIndex];
+    console.log(`increase: ${selectedProgress.goalName}`);
+  }
+
   private getWeekOfTheYear(d: Date): number {
     // Copy date so don't modify original
     d = new Date(+d);
