@@ -17,42 +17,20 @@ export class ProglineDirective implements OnInit {
   private appendValue(value: any) {
     const td = document.createElement('td');
     const span = document.createElement('span');
-
-    td.appendChild(span);
     span.innerText = value;
 
+    td.appendChild(span);
     this.renderer.appendChild(this.el.nativeElement, td);
   }
 
-  createProgressButton(innerText: string, listener: EventListener): HTMLButtonElement {
-    const progressBtn = document.createElement('button');
-    progressBtn.innerText = innerText;
-    progressBtn.addEventListener('click', listener);
-
-    return progressBtn;
-  }
-
-  createProgressElement(value: number, max: number): HTMLProgressElement {
+  private appendProgress(value: number, max: number) {
+    const td = document.createElement('td');
+    const span = document.createElement('span');
     const prog = document.createElement('progress');
     prog.value = value;
     prog.max = max;
 
-    return prog;
-  }
-
-  private appendProgress(value: number, max: number, withButtons: boolean) {
-    const td = document.createElement('td');
-    const span = document.createElement('span');
-
-    if (withButtons) {
-      span.appendChild(this.createProgressButton('-', (e: Event) => this.decreaseEvent.emit(this.index)));
-    }
-
-    span.appendChild(this.createProgressElement(value, max));
-
-    if (withButtons) {
-      span.appendChild(this.createProgressButton('+', (e: Event) => this.increaseEvent.emit(this.index)));
-    }
+    span.appendChild(prog);
 
     td.appendChild(span);
     this.renderer.appendChild(this.el.nativeElement, td);
@@ -74,6 +52,7 @@ export class ProglineDirective implements OnInit {
     this.appendValue('');
     this.appendValue('');
     this.appendValue('');
+    this.appendValue('');
 
     const allActualPoints = this.allProgress.map(p => ((p.points / p.target) * p.factor));
     const allFactors = this.allProgress.map(p => p.factor);
@@ -81,7 +60,8 @@ export class ProglineDirective implements OnInit {
     const totalPoints = allActualPoints.reduce((previous, current) => previous + current);
     const totalFactors = allFactors.reduce((previous, current) => previous + current);
 
-    this.appendProgress(totalPoints, totalFactors, false);
+    this.appendProgress(totalPoints, totalFactors);
+    this.appendValue('');
     this.appendValue(totalPoints);
   }
 
@@ -89,15 +69,31 @@ export class ProglineDirective implements OnInit {
   }
 
   private appendProgressLine() {
-    const actualProgress = this.allProgress[this.index];
-    this.appendValue(actualProgress.goalName);
-    this.appendValue(actualProgress.description);
-    this.appendValue(actualProgress.stepSize);
-    this.appendValue(actualProgress.unit);
-    this.appendValue(actualProgress.target);
-    this.appendValue(actualProgress.factor);
-    this.appendValue(actualProgress.points);
-    this.appendProgress(actualProgress.points, actualProgress.target, true);
-    this.appendValue(((actualProgress.points / actualProgress.target) * actualProgress.factor).toFixed(2));
+    const currentProgress = this.allProgress[this.index];
+
+    this.appendValue(currentProgress.goalName);
+    this.appendValue(currentProgress.description);
+    this.appendValue(currentProgress.stepSize);
+    this.appendValue(currentProgress.unit);
+    this.appendValue(currentProgress.target);
+    this.appendValue(currentProgress.factor);
+    this.appendValue(currentProgress.points);
+    this.appendButton('-', () => this.decreaseEvent.emit(this.index));
+    this.appendProgress(currentProgress.points, currentProgress.target);
+    this.appendButton('+', () => this.increaseEvent.emit(this.index));
+    this.appendValue(((currentProgress.points / currentProgress.target) * currentProgress.factor).toFixed(2));
+  }
+
+  appendButton(innerText: string, listener: EventListener): void {
+    const td = document.createElement('td');
+    const span = document.createElement('span');
+    const btn = document.createElement('button');
+    btn.innerText = innerText;
+    btn.addEventListener('click', listener);
+
+    span.appendChild(btn);
+    td.appendChild(span);
+
+    this.renderer.appendChild(this.el.nativeElement, td);
   }
 }
