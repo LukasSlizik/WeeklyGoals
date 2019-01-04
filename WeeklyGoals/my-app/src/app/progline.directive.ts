@@ -32,23 +32,29 @@ export class ProglineDirective implements OnInit {
     return progressBtn;
   }
 
-  createProgressSpan(value: number, max: number): HTMLSpanElement {
-    const span = document.createElement('span');
+  createProgressElement(value: number, max: number): HTMLProgressElement {
     const prog = document.createElement('progress');
     prog.value = value;
     prog.max = max;
 
-    span.appendChild(this.createProgressButton('-', (e: Event) => this.decreaseEvent.emit(this.index)));
-    span.appendChild(prog);
-    span.appendChild(this.createProgressButton('+', (e: Event) => this.increaseEvent.emit(this.index)));
-
-    return span;
+    return prog;
   }
 
-  private appendProgress(value: number, max: number) {
+  private appendProgress(value: number, max: number, withButtons: boolean) {
     const td = document.createElement('td');
-    td.appendChild(this.createProgressSpan(value, max));
+    const span = document.createElement('span');
 
+    if (withButtons) {
+      span.appendChild(this.createProgressButton('-', (e: Event) => this.decreaseEvent.emit(this.index)));
+    }
+
+    span.appendChild(this.createProgressElement(value, max));
+
+    if (withButtons) {
+      span.appendChild(this.createProgressButton('+', (e: Event) => this.increaseEvent.emit(this.index)));
+    }
+
+    td.appendChild(span);
     this.renderer.appendChild(this.el.nativeElement, td);
   }
 
@@ -75,7 +81,7 @@ export class ProglineDirective implements OnInit {
     const totalPoints = allActualPoints.reduce((previous, current) => previous + current);
     const totalFactors = allFactors.reduce((previous, current) => previous + current);
 
-    this.appendProgress(totalPoints, totalFactors);
+    this.appendProgress(totalPoints, totalFactors, false);
     this.appendValue(totalPoints);
   }
 
@@ -91,7 +97,7 @@ export class ProglineDirective implements OnInit {
     this.appendValue(actualProgress.target);
     this.appendValue(actualProgress.factor);
     this.appendValue(actualProgress.points);
-    this.appendProgress(actualProgress.points, actualProgress.target);
+    this.appendProgress(actualProgress.points, actualProgress.target, true);
     this.appendValue(((actualProgress.points / actualProgress.target) * actualProgress.factor).toFixed(2));
   }
 }

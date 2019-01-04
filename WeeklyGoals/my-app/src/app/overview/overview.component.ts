@@ -38,12 +38,10 @@ export class OverviewComponent implements OnInit {
 
   decrease(selIndex: number): void {
     const selectedProgress = this._progress[selIndex];
-    console.log(`decrease: ${selectedProgress.goalName}`);
   }
 
   increase(selIndex: number): void {
     const selectedProgress = this._progress[selIndex];
-    console.log(`increase: ${selectedProgress.goalName}`);
   }
 
   private getWeekOfTheYear(d: Date): number {
