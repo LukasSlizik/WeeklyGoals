@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
+import { Goal } from '../models/Goal';
 
 @Component({
   selector: 'app-goal',
@@ -7,36 +8,21 @@ import { DataService } from '../data.service';
   styleUrls: ['./goal.component.css'],
 })
 export class GoalComponent implements OnInit {
-  name: string;
-  description: string;
-  stepSize: number;
-  unit: string;
-  weeklyTarget: number;
-  factor: number;
-  startingDate: string;
+  submitted = false;
+
+  // dummy model
+  model: Goal = new Goal('namex', 'descriptionx', 3, 'hrs', 1, 6);
+
+  units = ['min', 'hrs', 'times', 'pages'];
 
   constructor(private _dataSvc: DataService) { }
 
   ngOnInit(): void {
-    // this.startingDate = ProgressHelper.convertDateToHtmlInputFormat(new Date());
   }
 
-  public createGoal() {
-    // var parsedDate = ProgressHelper.parseHtmlWeek(this.startingDate);
-    // var goal = new Goal(
-    //   -1,
-    //   this.name,
-    //   this.description,
-    //   this.stepSize,
-    //   this.unit,
-    //   this.weeklyTarget,
-    //   this.factor,
-    //   parsedDate.year,
-    //   parsedDate.week)
-    // this._dataSvc.createNewGoal(goal);
+  onSubmit() {
+    this.submitted = true;
   }
 
-  onName() {
-    console.log('name changed');
-  }
+  get diagnostic() { return JSON.stringify(this.model); }
 }

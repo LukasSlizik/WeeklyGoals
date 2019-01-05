@@ -23,6 +23,6 @@ export class EditComponent implements OnInit {
     console.log($event);
     const goalId = Number($event.target.id);
 
-    this._selectedGoal = this._goals.filter(goal => goal.id === goalId)[0];
+    // this._selectedGoal = this._goals.filter(goal => goal.id === goalId)[0];
   }
 }
