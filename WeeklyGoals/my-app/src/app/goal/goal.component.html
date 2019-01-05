@@ -6,7 +6,7 @@
       <!-- Goal Name -->
       <div class='form-group'>
         <label for='name'>Name</label>
-        <input type='text' [(ngModel)]='model.name' class='form-control' name='name' id='name' required #name='ngModel'>
+        <input type='text' [(ngModel)]='model.name' class='form-control' name='name' id='name' maxlength=50 required #name='ngModel'>
         <div [hidden]='name.valid || name.pristine' class='alert alert-danger'>
           Name is required
         </div>
@@ -15,26 +15,26 @@
       <!-- Goal Description -->
       <div class='form-group'>
         <label for='name'>Description</label>
-        <input type='text' [(ngModel)]='model.description' class='form-control' name='description' id='description'>
+        <input type='text' [(ngModel)]='model.description' class='form-control' name='description' maxlength=50 id='description'>
       </div>
 
       <!-- StepSize -->
       <div class='form-group'>
         <label for='name'>Step Size</label>
-        <input type='number' [(ngModel)]='model.stepSize' class='form-control' name='stepSize' id='stepSize'>
+        <input type='number' [(ngModel)]='model.stepSize' class='form-control' name='stepSize' min=1 id='stepSize' required>
       </div>
 
       <!-- WeeklyTarget -->
       <div class='form-group'>
         <label for='name'>WeeklyTarget</label>
-        <input type='number' [(ngModel)]='model.weeklyTarget' class='form-control' name='weeklyTarget' id='weeklyTarget'>
+        <input type='number' [(ngModel)]='model.weeklyTarget' class='form-control' name='weeklyTarget' min=1 id='weeklyTarget' required>
       </div>
 
       <!-- Factor -->
       <div class='form-group'>
-          <label for='name'>Factor</label>
-          <input type='number' [(ngModel)]='model.factor' class='form-control' name='factor' id='factor'>
-        </div>
+        <label for='name'>Factor</label>
+        <input type='number' [(ngModel)]='model.factor' class='form-control' name='factor' min=1 id='factor' required>
+      </div>
 
       <!-- Unit -->
       <div class='form-group'>
@@ -47,7 +47,7 @@
       <button type='submit' class='btn btn-success' [disabled]='!goalForm.form.valid'>Submit</button>
     </form>
   </div>
-  
+
   <div [hidden]='!submitted'>
     <h2>You submitted the following:</h2>
     {{diagnostic}}
