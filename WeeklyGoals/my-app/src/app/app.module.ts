@@ -11,6 +11,7 @@ import { OverviewComponent } from './overview/overview.component';
 import { EditComponent } from './edit/edit.component';
 import { GoalComponent } from './goal/goal.component';
 import { ProglineDirective } from './progline.directive';
+import { EnumToArrayPipe } from './models/EnumToArrayPipe';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { ProglineDirective } from './progline.directive';
     OverviewComponent,
     EditComponent,
     GoalComponent,
-    ProglineDirective
+    ProglineDirective,
+    EnumToArrayPipe
   ],
   imports: [
     BrowserModule,

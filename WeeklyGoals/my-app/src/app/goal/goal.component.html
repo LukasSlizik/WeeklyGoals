@@ -6,8 +6,9 @@
       <!-- Goal Name -->
       <div class='form-group'>
         <label for='name'>Name</label>
-        <input type='text' [(ngModel)]='model.name' class='form-control' name='name' id='name' maxlength=50 required #name='ngModel'>
-        <div [hidden]='name.valid || name.pristine' class='alert alert-danger'>
+        <input type='text' [(ngModel)]='model.name' class='form-control' name='name' id='name' maxlength=50 required
+          #goalName='ngModel'>
+        <div [hidden]='goalName.valid' class='alert alert-danger'>
           Name is required
         </div>
       </div>
@@ -21,13 +22,15 @@
       <!-- StepSize -->
       <div class='form-group'>
         <label for='name'>Step Size</label>
-        <input type='number' [(ngModel)]='model.stepSize' class='form-control' name='stepSize' min=1 id='stepSize' required>
+        <input type='number' [(ngModel)]='model.stepSize' class='form-control' name='stepSize' min=1 id='stepSize'
+          required>
       </div>
 
       <!-- WeeklyTarget -->
       <div class='form-group'>
         <label for='name'>WeeklyTarget</label>
-        <input type='number' [(ngModel)]='model.weeklyTarget' class='form-control' name='weeklyTarget' min=1 id='weeklyTarget' required>
+        <input type='number' [(ngModel)]='model.weeklyTarget' class='form-control' name='weeklyTarget' min=1 id='weeklyTarget'
+          required>
       </div>
 
       <!-- Factor -->
@@ -39,8 +42,8 @@
       <!-- Unit -->
       <div class='form-group'>
         <label for='unit'>Unit</label>
-        <select class='form-control' [(ngModel)]='model.unit' id='unit' name='unit' required>
-          <option *ngFor='let unit of units' [value]='unit'>{{unit}}</option>
+        <select class='form-control' [(ngModel)]='model.unit' id='unit' name='unit' #unitName='ngModel'>
+          <option *ngFor='let unit of unitsEnum | enumToArray' [value]='unit'>{{unit}}</option>
         </select>
       </div>
 

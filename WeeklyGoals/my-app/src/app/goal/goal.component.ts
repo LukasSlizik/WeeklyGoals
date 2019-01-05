@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
 import { Goal } from '../models/Goal';
+import { Unit } from '../models/units';
 
 @Component({
   selector: 'app-goal',
@@ -9,9 +10,8 @@ import { Goal } from '../models/Goal';
 })
 export class GoalComponent implements OnInit {
   submitted = false;
-  model: Goal = {name: '', description: '', stepSize: 1, unit: 'hrs', weeklyTarget: 1, factor: 1};
-
-  units = ['min', 'hrs', 'times', 'pages'];
+  model: Goal = {name: 'name of the goal', description: 'short description', stepSize: 1, unit: Unit.hrs , weeklyTarget: 1, factor: 1};
+  unitsEnum = Unit;
 
   constructor(private _dataSvc: DataService) { }
 
