@@ -9,9 +9,7 @@ import { Goal } from '../models/Goal';
 })
 export class GoalComponent implements OnInit {
   submitted = false;
-
-  // dummy model
-  model: Goal = new Goal('namex', 'descriptionx', 3, 'hrs', 1, 6);
+  model: Goal = {name: '', description: '', stepSize: 1, unit: 'hrs', weeklyTarget: 1, factor: 1};
 
   units = ['min', 'hrs', 'times', 'pages'];
 
