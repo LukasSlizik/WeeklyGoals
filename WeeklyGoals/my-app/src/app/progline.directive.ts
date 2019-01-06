@@ -14,16 +14,16 @@ export class ProglineDirective implements OnInit {
   @Output() increaseEvent: EventEmitter<number> = new EventEmitter();
   @Output() decreaseEvent: EventEmitter<number> = new EventEmitter();
 
-  private appendValue(value: any) {
+  private appendValue(value: string | number): void {
     const td = document.createElement('td');
     const span = document.createElement('span');
-    span.innerText = value;
+    span.innerText = value.toString();
 
     td.appendChild(span);
     this.renderer.appendChild(this.el.nativeElement, td);
   }
 
-  private appendProgress(value: number, max: number) {
+  private appendProgress(value: number, max: number): void {
     const td = document.createElement('td');
     const span = document.createElement('span');
     const prog = document.createElement('progress');
@@ -44,7 +44,7 @@ export class ProglineDirective implements OnInit {
     }
   }
 
-  appendSummaryLine(): any {
+  appendSummaryLine(): void {
     this.appendValue('');
     this.appendValue('');
     this.appendValue('');
@@ -63,6 +63,25 @@ export class ProglineDirective implements OnInit {
     this.appendProgress(totalPoints, totalFactors);
     this.appendValue('');
     this.appendValue(totalPoints);
+    this.appendValue('');
+  }
+
+  appendEditAndDelete(): any {
+    const td = document.createElement('td');
+    const span = document.createElement('span');
+
+    const editBtn = document.createElement('a');
+    editBtn.classList.add('material-icons', 'md-24');
+    editBtn.innerText = 'edit';
+
+    const deleteBtn = document.createElement('a');
+    deleteBtn.classList.add('material-icons', 'md-24');
+    deleteBtn.innerText = 'delete';
+
+    span.append(editBtn, deleteBtn);
+
+    td.appendChild(span);
+    this.renderer.appendChild(this.el.nativeElement, td);
   }
 
   constructor(private el: ElementRef, private renderer: Renderer2) {
@@ -82,6 +101,7 @@ export class ProglineDirective implements OnInit {
     this.appendProgress(currentProgress.points, currentProgress.target);
     this.appendButton('+', () => this.increaseEvent.emit(this.index));
     this.appendValue(((currentProgress.points / currentProgress.target) * currentProgress.factor).toFixed(2));
+    this.appendEditAndDelete();
   }
 
   appendButton(innerText: string, listener: EventListener): void {
