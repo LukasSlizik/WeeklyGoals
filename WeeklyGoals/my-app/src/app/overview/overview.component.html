@@ -1,7 +1,10 @@
+<h1>Overview</h1>
 <div>
   <label>Select your week</label>
   <input type="week" (change)='weekChanged($event)' [(value)]='selectedDateAsWeek' />
 </div>
+
+<a routerLink='/create'>create new goal</a>
 
 <table class="table">
   <thead>
@@ -21,11 +24,9 @@
   </thead>
   <tbody>
     <!-- progress lines -->
-    <tr appProgline [allprogress]=_progress 
-                    [index]=i *ngFor='let p of _progress; let i = index' 
-                    (decreaseEvent)='decrease($event)'
-                    (increaseEvent)='increase($event)'></tr>
-    
+    <tr appProgline [allprogress]=_progress [index]=i *ngFor='let p of _progress; let i = index' (decreaseEvent)='decrease($event)'
+      (increaseEvent)='increase($event)'></tr>
+
     <!-- summary line -->
     <tr appProgline [allprogress]=_progress [index]=-1></tr>
   </tbody>
