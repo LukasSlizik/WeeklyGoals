@@ -13,6 +13,8 @@ export class ProglineDirective implements OnInit {
 
   @Output() increaseEvent: EventEmitter<number> = new EventEmitter();
   @Output() decreaseEvent: EventEmitter<number> = new EventEmitter();
+  @Output() editEvent: EventEmitter<number> = new EventEmitter();
+  @Output() deleteEvent: EventEmitter<number> = new EventEmitter();
 
   private appendValue(value: string | number): void {
     const td = document.createElement('td');
@@ -70,13 +72,19 @@ export class ProglineDirective implements OnInit {
     const td = document.createElement('td');
     const span = document.createElement('span');
 
-    const editBtn = document.createElement('a');
+    const editBtn = document.createElement('button');
     editBtn.classList.add('material-icons', 'md-24');
     editBtn.innerText = 'edit';
+    editBtn.addEventListener('click', () => {
+      this.editEvent.emit(this.index);
+    });
 
-    const deleteBtn = document.createElement('a');
+    const deleteBtn = document.createElement('button');
     deleteBtn.classList.add('material-icons', 'md-24');
     deleteBtn.innerText = 'delete';
+    editBtn.addEventListener('click', () => {
+      this.deleteEvent.emit(this.index);
+    });
 
     span.append(editBtn, deleteBtn);
 

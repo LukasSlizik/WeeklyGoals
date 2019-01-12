@@ -44,6 +44,14 @@ export class OverviewComponent implements OnInit {
     const selectedProgress = this._progress[selIndex];
   }
 
+  deleteProgress(selIndex: number): void {
+    const selectedProgress = this._progress[selIndex];
+  }
+
+  editProgress(selIndex: number): void {
+    const selectedProgress = this._progress[selIndex];
+  }
+
   private getWeekOfTheYear(d: Date): number {
     // Copy date so don't modify original
     d = new Date(+d);

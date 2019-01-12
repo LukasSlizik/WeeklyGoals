@@ -25,8 +25,14 @@
   </thead>
   <tbody>
     <!-- progress lines -->
-    <tr appProgline [allprogress]=_progress [index]=i *ngFor='let p of _progress; let i = index' (decreaseEvent)='decrease($event)'
-      (increaseEvent)='increase($event)'></tr>
+    <tr appProgline 
+        [allprogress]=_progress 
+        [index]=i 
+        *ngFor='let p of _progress; let i = index' 
+        (decreaseEvent)='decrease($event)'
+        (increaseEvent)='increase($event)'
+        (editEvent)='editProgress($event)'
+        (deleteEvent)='deleteProgress($event)'></tr>
 
     <!-- summary line -->
     <tr appProgline [allprogress]=_progress [index]=-1></tr>
