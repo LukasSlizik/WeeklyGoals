@@ -8,7 +8,6 @@ import { AppComponent } from './app.component';
 import { NavMenuComponent } from './navmenu/navmenu.component';
 import { DataService } from './data.service';
 import { OverviewComponent } from './overview/overview.component';
-import { EditComponent } from './edit/edit.component';
 import { GoalComponent } from './goal/goal.component';
 import { ProglineDirective } from './progline.directive';
 import { EnumToArrayPipe } from './models/EnumToArrayPipe';
@@ -18,7 +17,6 @@ import { EnumToArrayPipe } from './models/EnumToArrayPipe';
     AppComponent,
     NavMenuComponent,
     OverviewComponent,
-    EditComponent,
     GoalComponent,
     ProglineDirective,
     EnumToArrayPipe
