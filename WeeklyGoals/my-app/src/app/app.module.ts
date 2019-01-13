@@ -9,7 +9,6 @@ import { NavMenuComponent } from './navmenu/navmenu.component';
 import { DataService } from './data.service';
 import { OverviewComponent } from './overview/overview.component';
 import { GoalComponent } from './goal/goal.component';
-import { ProglineDirective } from './progline.directive';
 import { EnumToArrayPipe } from './models/EnumToArrayPipe';
 
 @NgModule({
@@ -18,7 +17,6 @@ import { EnumToArrayPipe } from './models/EnumToArrayPipe';
     NavMenuComponent,
     OverviewComponent,
     GoalComponent,
-    ProglineDirective,
     EnumToArrayPipe
   ],
   imports: [

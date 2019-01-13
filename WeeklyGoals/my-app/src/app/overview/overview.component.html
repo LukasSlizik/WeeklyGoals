@@ -24,17 +24,121 @@
     </tr>
   </thead>
   <tbody>
-    <!-- progress lines -->
-    <tr appProgline 
-        [allprogress]=_progress 
-        [index]=i 
-        *ngFor='let p of _progress; let i = index' 
-        (decreaseEvent)='decrease($event)'
-        (increaseEvent)='increase($event)'
-        (editEvent)='editProgress($event)'
-        (deleteEvent)='deleteProgress($event)'></tr>
+    <tr *ngFor='let p of _progress'>
+      <!-- goalName -->
+      <td>
+        <span>{{p.goalName}}</span>
+      </td>
+
+      <!-- description -->
+      <td>
+        <span>{{p.description}}</span>
+      </td>
+
+      <!-- stepSize -->
+      <td>
+        <span>{{p.stepSize}}</span>
+      </td>
+
+      <!-- unit -->
+      <td>
+        <span>{{p.unit}}</span>
+      </td>
+
+      <!-- target -->
+      <td>
+        <span>{{p.target}}</span>
+      </td>
+
+      <!-- factor -->
+      <td>
+        <span>{{p.factor}}</span>
+      </td>
+
+      <!-- points -->
+      <td>
+        <span>{{p.points}}</span>
+      </td>
+
+      <!-- decrease -->
+      <td>
+        <span><button (click)='decrease(p)'>-</button></span>
+      </td>
+
+      <!-- progress -->
+      <td>
+        <span>
+          <progress value={{p.points}} max={{p.target}}></progress>
+        </span>
+      </td>
+
+      <!-- increase -->
+      <td>
+        <span><button (click)='increase(p)'>+</button></span>
+      </td>
+
+      <!-- points -->
+      <td>
+        <span>{{ ((p.points / p.target) * p.factor).toFixed(2) }}</span>
+      </td>
+
+      <!-- edit and delete -->
+      <td>
+        <span>
+          <button class='material-icons md-24' (click)='editProgress(p)'>
+            edit
+          </button>
+          <button class='material-icons md-24' (click)='deleteProgress(p)'>
+            delete
+          </button>
+        </span>
+      </td>
+    </tr>
 
     <!-- summary line -->
-    <tr appProgline [allprogress]=_progress [index]=-1></tr>
+    <tr>
+      <!-- goalName -->
+      <td></td>
+
+      <!-- description -->
+      <td></td>
+
+      <!-- stepSize -->
+      <td></td>
+
+      <!-- unit -->
+      <td></td>
+
+      <!-- target -->
+      <td></td>
+
+      <!-- factor -->
+      <td></td>
+
+      <!-- points -->
+      <td></td>
+
+      <!-- decrease -->
+      <td></td>
+
+      <!-- progress -->
+      <td>
+        <span>
+          <progress value='{{ getTotalPoints() }}' max='{{ getTotalFactors() }}'> </progress>
+        </span>
+      </td>
+
+      <!-- increase -->
+      <td></td>
+
+      <!-- points -->
+      <td>
+        <span>{{ getTotalPoints() }}</span>
+      </td>
+
+      <!-- edit and delete -->
+      <td></td>
+
+    </tr>
   </tbody>
 </table>

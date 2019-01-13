@@ -8,7 +8,6 @@ import { DataService } from '../data.service';
   styleUrls: ['./overview.component.css']
 })
 export class OverviewComponent implements OnInit {
-
   _progress: Progress[] = [];
   selectedDateAsWeek: string;
 
@@ -36,20 +35,34 @@ export class OverviewComponent implements OnInit {
     return `${year}-W${week}`;
   }
 
-  decrease(selIndex: number): void {
-    const selectedProgress = this._progress[selIndex];
+  decrease(selProgress: Progress): void {
+    console.log('decrease');
   }
 
-  increase(selIndex: number): void {
-    const selectedProgress = this._progress[selIndex];
+  increase(selProgress: Progress): void {
+    console.log('increase');
   }
 
-  deleteProgress(selIndex: number): void {
-    const selectedProgress = this._progress[selIndex];
+  deleteProgress(selProgress: Progress): void {
+    console.log('delete');
   }
 
-  editProgress(selIndex: number): void {
-    const selectedProgress = this._progress[selIndex];
+  editProgress(selProgress: Progress): void {
+    console.log('edit');
+  }
+
+  getTotalPoints(): number {
+  const allActualPoints = this._progress.map(p => ((p.points / p.target) * p.factor));
+  const totalPoints = allActualPoints.reduce((previous, current) => previous + current);
+
+  return totalPoints;
+  }
+
+  getTotalFactors(): number {
+    const allFactors = this._progress.map(p => p.factor);
+    const totalFactors = allFactors.reduce((previous, current) => previous + current);
+
+    return totalFactors;
   }
 
   private getWeekOfTheYear(d: Date): number {
@@ -70,35 +83,4 @@ export class OverviewComponent implements OnInit {
     // Return array of year and week number
     return weekNo;
   }
-
-  //   this.selectedWeek = ProgressHelper.convertDateToHtmlInputFormat(currentDate);
-  //   const currentYear = currentDate.getFullYear();
-  //   const currentWeek = ProgressHelper.getWeekOfTheYear(currentDate);
-
-  //   this.setProgress(currentYear, currentWeek);
-  // }
-
-  // private setProgress(year: number, week: number) {
-  //   this._progressSvc.getAllProgressForWeek(year, week).subscribe(progress => {
-  //     this.progress = progress;
-  //     this.progress.push(this.summaryProgress);
-  //     this.calculateSummary();
-  //   });
-  // }
-
-
-  // public onUpdateProgress(progress: Progress) {
-  //   this.calculateSummary();
-  // }
-
-  // private getSummaryProgress(): Progress {
-  //   const p = new Progress();
-  //   p.actualPoints = -1;
-  //   p.isSummary = true;
-
-  //   return p;
-  // }
-
-
-
 }
