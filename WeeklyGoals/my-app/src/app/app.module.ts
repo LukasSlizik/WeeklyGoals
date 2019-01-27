@@ -17,7 +17,7 @@ import { KeyValuePairs } from './models/EnumToArrayPipe';
     NavMenuComponent,
     OverviewComponent,
     GoalComponent,
-    KeyValuePairs
+    KeyValuePairs,
   ],
   imports: [
     BrowserModule,
