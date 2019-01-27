@@ -85,7 +85,7 @@
       <!-- edit and delete -->
       <td>
         <span>
-          <a class='material-icons md-24' (click)='editProgress(p)'[routerLink]='["create", p.goalId]'>
+          <a class='material-icons md-24' [routerLink]='["create", p.goalId]'>
             edit
           </a>
           <a class='material-icons md-24' (click)='deleteProgress(p)'>

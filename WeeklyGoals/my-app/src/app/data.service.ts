@@ -10,7 +10,7 @@ import { Unit } from './models/units';
 })
 export class DataService {
   private _goalUrl = 'api/Goals';
-  private _progressUrl = 'api/Progress';
+  private _progressUrl = 'http://localhost:50355/api/GetProgressForWeek';
   private _updateProgressUrl = 'api/UpdateProgress';
 
   constructor(private _httpClient: HttpClient) { }

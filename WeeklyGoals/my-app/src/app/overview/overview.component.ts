@@ -17,9 +17,9 @@ export class OverviewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._dataService.getAllProgressForWeekDummy(1998, 12).subscribe((data) => {
-      console.log(data);
-      this._progress.push(data);
+    this._dataService.getAllProgressForWeek(1998, 12).subscribe((data) => {
+      // this._progress.push(data);
+      this._progress = data;
     });
   }
 
@@ -49,10 +49,6 @@ export class OverviewComponent implements OnInit {
 
   deleteProgress(selProgress: Progress): void {
     console.log('delete');
-  }
-
-  editProgress(selProgress: Progress): void {
-    console.log('edit');
   }
 
   getTotalPoints(): number {

@@ -14,7 +14,8 @@ using System.Collections.Generic;
 
 namespace WeeklyGoals.Controllers
 {
-    [Authorize]
+    [AllowAnonymous]
+    [Route("api")]
     public class HomeController : Controller
     {
         private GoalsContext _ctx;
@@ -107,6 +108,7 @@ namespace WeeklyGoals.Controllers
         /// Returns all progress records for the specified week. Missing goals will be automatically inserted to the db.
         /// </summary>
         [HttpGet]
+        [Route("GetProgressForWeek")]
         public IActionResult GetProgressForWeek(string year, string week)
         {
             var yearAsInt = Int32.Parse(year);
