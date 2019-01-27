@@ -3,6 +3,7 @@ import { Observable, ObjectUnsubscribedError } from 'rxjs';
 import { HttpClient, HttpParams, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Goal } from './models/Goal';
 import { Progress } from './models/Progress';
+import { Unit } from './models/units';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +23,7 @@ export class DataService {
   getAllProgressForWeekDummy(year: number, week: number): Observable<Progress> {
     const p1: Progress = {
       id: 1,
+      goalId: 1,
       goalName: 'software skills',
       description: 'write some code',
       stepSize: 1,
@@ -33,6 +35,7 @@ export class DataService {
 
     const p2: Progress = {
       id: 2,
+      goalId: 2,
       goalName: 'guitar',
       description: 'make some noise',
       stepSize: 20,
@@ -44,6 +47,7 @@ export class DataService {
 
     const p3: Progress = {
       id: 3,
+      goalId: 3,
       goalName: 'design patterns',
       description: 'read some design patterns',
       stepSize: 1,
@@ -55,6 +59,7 @@ export class DataService {
 
     const p4: Progress = {
       id: 3,
+      goalId: 4,
       goalName: 'fitness',
       description: 'do some sports',
       stepSize: 1,
@@ -74,6 +79,19 @@ export class DataService {
     });
 
     return progressData;
+  }
+
+  getGoalById(id: number): Goal {
+    const g: Goal = {
+      name: 'guitar',
+      description: 'play the guitar',
+      factor: 2,
+      stepSize: 1,
+      unit: Unit.times,
+      weeklyTarget: 4,
+    };
+
+    return g;
   }
 
   getAllProgressForWeek(year: number, week: number): Observable<Progress[]> {

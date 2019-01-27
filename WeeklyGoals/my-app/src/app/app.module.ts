@@ -9,7 +9,7 @@ import { NavMenuComponent } from './navmenu/navmenu.component';
 import { DataService } from './data.service';
 import { OverviewComponent } from './overview/overview.component';
 import { GoalComponent } from './goal/goal.component';
-import { EnumToArrayPipe } from './models/EnumToArrayPipe';
+import { KeyValuePairs } from './models/EnumToArrayPipe';
 
 @NgModule({
   declarations: [
@@ -17,7 +17,7 @@ import { EnumToArrayPipe } from './models/EnumToArrayPipe';
     NavMenuComponent,
     OverviewComponent,
     GoalComponent,
-    EnumToArrayPipe
+    KeyValuePairs
   ],
   imports: [
     BrowserModule,

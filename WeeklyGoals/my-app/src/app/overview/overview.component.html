@@ -85,12 +85,12 @@
       <!-- edit and delete -->
       <td>
         <span>
-          <button class='material-icons md-24' (click)='editProgress(p)'>
+          <a class='material-icons md-24' (click)='editProgress(p)'[routerLink]='["create", p.goalId]'>
             edit
-          </button>
-          <button class='material-icons md-24' (click)='deleteProgress(p)'>
+          </a>
+          <a class='material-icons md-24' (click)='deleteProgress(p)'>
             delete
-          </button>
+          </a>
         </span>
       </td>
     </tr>

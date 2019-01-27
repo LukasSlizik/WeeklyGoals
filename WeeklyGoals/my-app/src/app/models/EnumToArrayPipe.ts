@@ -1,11 +1,16 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'enumToArray'
+  name: 'keyValuePairs'
 })
-export class EnumToArrayPipe implements PipeTransform {
-  transform(data: Object) {
-    const keys = Object.keys(data);
-    return keys.slice(keys.length / 2);
+export class KeyValuePairs implements PipeTransform {
+  transform(data: Object): any {
+    const keyValuePairs = [];
+    for (const enumMember in data) {
+      if (!isNaN(parseInt(enumMember, 10))) {
+        keyValuePairs.push({ key: enumMember, value: data[enumMember] });
+      }
+    }
+    return keyValuePairs;
   }
 }

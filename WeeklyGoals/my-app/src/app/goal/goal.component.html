@@ -42,8 +42,8 @@
       <!-- Unit -->
       <div class='form-group'>
         <label for='unit'>Unit</label>
-        <select class='form-control' [(ngModel)]='model.unit' id='unit' name='unit' #unitName='ngModel'>
-          <option *ngFor='let unit of unitsEnum | enumToArray' [value]='unit'>{{unit}}</option>
+        <select class='form-control' [(ngModel)]='model.unit' id='unit' name='unit' #unitName='ngModel' required>
+          <option *ngFor='let unit of unitsEnum | keyValuePairs' [value]='unit.key'>{{unit.value}}</option>
         </select>
       </div>
 

@@ -5,7 +5,8 @@ import { GoalComponent } from './goal/goal.component';
 
 const routes: Routes = [
   { path: '', component: OverviewComponent },
-  { path: 'create', component: GoalComponent },
+  { path: 'create/:id', component: GoalComponent, data: {mode: 'edit'} },
+  { path: 'create', component: GoalComponent, data: {mode: 'create'} },
 ];
 
 @NgModule({
