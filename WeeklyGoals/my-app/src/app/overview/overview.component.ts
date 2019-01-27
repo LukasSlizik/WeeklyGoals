@@ -30,7 +30,11 @@ export class OverviewComponent implements OnInit {
 
   private getWeekAsHtml(date: Date): string {
     const year = date.getFullYear();
-    const week = this.getWeekOfTheYear(date);
+    let week = this.getWeekOfTheYear(date).toString();
+
+    if (week.length < 2) {
+      week = '0' + week;
+    }
 
     return `${year}-W${week}`;
   }
@@ -52,10 +56,10 @@ export class OverviewComponent implements OnInit {
   }
 
   getTotalPoints(): number {
-  const allActualPoints = this._progress.map(p => ((p.points / p.target) * p.factor));
-  const totalPoints = allActualPoints.reduce((previous, current) => previous + current);
+    const allActualPoints = this._progress.map(p => ((p.points / p.target) * p.factor));
+    const totalPoints = allActualPoints.reduce((previous, current) => previous + current);
 
-  return totalPoints;
+    return totalPoints;
   }
 
   getTotalFactors(): number {
