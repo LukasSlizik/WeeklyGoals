@@ -52,17 +52,21 @@ export class OverviewComponent implements OnInit {
   }
 
   getTotalPoints(): number {
-    const allActualPoints = this._progress.map(p => ((p.points / p.target) * p.factor));
-    const totalPoints = allActualPoints.reduce((previous, current) => previous + current);
+    // const allActualPoints = this._progress.map(p => ((p.points / p.target) * p.factor));
+    // const totalPoints = allActualPoints.reduce((previous, current) => previous + current);
 
-    return totalPoints;
+    // return totalPoints;
+
+    return 5;
   }
 
   getTotalFactors(): number {
-    const allFactors = this._progress.map(p => p.factor);
-    const totalFactors = allFactors.reduce((previous, current) => previous + current);
+    // const allFactors = this._progress.map(p => p.factor);
+    // const totalFactors = allFactors.reduce((previous, current) => previous + current);
 
-    return totalFactors;
+    // return totalFactors;
+
+    return 6;
   }
 
   private getWeekOfTheYear(d: Date): number {

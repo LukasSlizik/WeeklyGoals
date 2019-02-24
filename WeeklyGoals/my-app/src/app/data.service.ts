@@ -95,7 +95,7 @@ export class DataService {
   }
 
   getAllProgressForWeek(year: number, week: number): Observable<Progress[]> {
-    const httpParams = new HttpParams().set('year', year.toString()).set('week', week.toString())
+    const httpParams = new HttpParams().set('year', year.toString()).set('week', week.toString());
     return this._httpClient.get<Progress[]>(this._progressUrl, { params: httpParams });
     // .catch(this.handleError);
   }
