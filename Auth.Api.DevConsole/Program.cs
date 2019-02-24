@@ -6,7 +6,7 @@ namespace Auth.Api.DevConsole
     {
         static void Main(string[] args)
         {
-            //ApiBootstrapper.Start();
+            ApiBootstrapper.Start();
             Console.WriteLine("AUTH Endpoint is running...");
             Console.WriteLine("Press ENTER to exit...");
             Console.ReadLine();
