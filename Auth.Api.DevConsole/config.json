@@ -1,8 +1,0 @@
-{
-  "AccessTokenTimeout": 300,
-  "RefreshTokenTimeout": 60000,
-  "TokensIssuer": "Lukas Slizik",
-  "SecurityConfigFile": "rsa.json",
-  "DbConnectionString": "Server=(localdb)\\MSSQLLocalDB;Database=CATcloudAuth;Trusted_Connection=True;",
-  "ApiBaseUrl": "http://localhost:8000"
-}

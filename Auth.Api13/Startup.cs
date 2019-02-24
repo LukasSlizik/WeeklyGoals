@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Auth.Api.Models;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -17,6 +19,12 @@ namespace Auth.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+
+            services.AddIdentityCore<CustomUser>(options => { });
+            services.AddScoped<IUserStore<CustomUser>, CustomUserStore>();
+
+            services.AddAuthentication("cookies")
+                .AddCookie("cookies", options => options.LoginPath = "/Auth/Login");
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

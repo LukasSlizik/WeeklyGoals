@@ -9,9 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Auth", "Auth", "{28A529C2-1
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{F3DA3801-6E13-4A47-8DCB-71F63FB125E6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auth.Api", "Auth.Api\Auth.Api.csproj", "{92E4109F-8CE2-4EA8-9249-5EEAF4F2981D}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auth.Api.DevConsole", "Auth.Api.DevConsole\Auth.Api.DevConsole.csproj", "{DA12AED0-2C04-4D10-8233-A488E7FBA99A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Auth.Api.DevConsole", "Auth.Api.DevConsole\Auth.Api.DevConsole.csproj", "{DA12AED0-2C04-4D10-8233-A488E7FBA99A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +21,6 @@ Global
 		{42626EBF-E3A9-4983-BB6B-E22FA963B561}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{42626EBF-E3A9-4983-BB6B-E22FA963B561}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{42626EBF-E3A9-4983-BB6B-E22FA963B561}.Release|Any CPU.Build.0 = Release|Any CPU
-		{92E4109F-8CE2-4EA8-9249-5EEAF4F2981D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{92E4109F-8CE2-4EA8-9249-5EEAF4F2981D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{92E4109F-8CE2-4EA8-9249-5EEAF4F2981D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{92E4109F-8CE2-4EA8-9249-5EEAF4F2981D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DA12AED0-2C04-4D10-8233-A488E7FBA99A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DA12AED0-2C04-4D10-8233-A488E7FBA99A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DA12AED0-2C04-4D10-8233-A488E7FBA99A}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -37,7 +31,6 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{F3DA3801-6E13-4A47-8DCB-71F63FB125E6} = {28A529C2-11BE-43FB-BE76-AE20BE5FAB43}
-		{92E4109F-8CE2-4EA8-9249-5EEAF4F2981D} = {F3DA3801-6E13-4A47-8DCB-71F63FB125E6}
 		{DA12AED0-2C04-4D10-8233-A488E7FBA99A} = {F3DA3801-6E13-4A47-8DCB-71F63FB125E6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
