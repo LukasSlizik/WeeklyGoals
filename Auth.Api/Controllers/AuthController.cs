@@ -19,22 +19,29 @@ namespace Auth.Api.Controllers
         }
 
         [HttpGet]
-        [Authorize]
-        [Route("info")]
-        public async Task<IActionResult> Info()
-        {
-            return Ok();
-        }
-
-        [HttpGet]
-        [Route("login")]
-        public async Task<IActionResult> Login()
+        public IActionResult Index()
         {
             return View();
         }
 
+        [HttpGet]
+        [Authorize]
+        [Route("info")]
+        public IActionResult Info()
+        {
+            return Ok();
+        }
+
+        [Route("login")]
+        public IActionResult LogIn()
+        {
+            return View(new LogInModel());
+        }
+
+        [Route("login")]
+        [ValidateAntiForgeryToken]
         [HttpPost]
-        public async Task<IActionResult> Login(LoginModel model)
+        public async Task<IActionResult> LogIn(LogInModel model)
         {
             if (ModelState.IsValid)
             {
@@ -54,7 +61,8 @@ namespace Auth.Api.Controllers
                 ModelState.AddModelError("", "Invalid UserName or Password");
             }
 
-            return View();
+            return View(model);
         }
+
     }
 }
