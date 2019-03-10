@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using System.Threading.Tasks;
 using Auth.Api.Models;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Auth.Api.Controllers
 {
+    [Route("auth")]
     public class AuthController : Controller
     {
         private UserManager<CustomUser> _userManager;
@@ -20,6 +19,15 @@ namespace Auth.Api.Controllers
         }
 
         [HttpGet]
+        [Authorize]
+        [Route("info")]
+        public async Task<IActionResult> Info()
+        {
+            return Ok();
+        }
+
+        [HttpGet]
+        [Route("login")]
         public async Task<IActionResult> Login()
         {
             return View();
