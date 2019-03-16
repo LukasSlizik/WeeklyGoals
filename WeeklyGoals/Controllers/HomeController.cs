@@ -14,8 +14,7 @@ using System.Collections.Generic;
 
 namespace WeeklyGoals.Controllers
 {
-    [AllowAnonymous]
-    [Route("api")]
+    [Authorize]
     public class HomeController : Controller
     {
         private GoalsContext _ctx;
@@ -25,22 +24,6 @@ namespace WeeklyGoals.Controllers
         public HomeController(GoalsContext ctx)
         {
             _ctx = ctx;
-        }
-
-        [HttpGet]
-        [AllowAnonymous]
-        public IActionResult Login()
-        {
-            // challenge the user by logging in with OIDC server 
-            return Challenge(new AuthenticationProperties { RedirectUri = Url.Action(nameof(Index)) }, OpenIdConnectDefaults.AuthenticationScheme);
-        }
-
-        [HttpGet]
-        public IActionResult Logout()
-        {
-            // remove cookie that authenticates user
-            // also logout of OIDC identity provider
-            return SignOut(new AuthenticationProperties { RedirectUri = Url.Action(nameof(Index)) }, CookieAuthenticationDefaults.AuthenticationScheme, OpenIdConnectDefaults.AuthenticationScheme);
         }
 
         // POST: Goals/Create
@@ -58,7 +41,6 @@ namespace WeeklyGoals.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
         public IActionResult Index()
         {
             return Ok("Hello from Index");
