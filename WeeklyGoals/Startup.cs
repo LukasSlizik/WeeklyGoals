@@ -7,7 +7,7 @@ using WeeklyGoals.Models;
 using Microsoft.EntityFrameworkCore;
 using WeeklyGoals.Services;
 
-namespace WeeklyGoals1
+namespace WeeklyGoals
 {
     public class Startup
     {

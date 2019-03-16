@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace WeeklyGoals1
+namespace WeeklyGoals
 {
     public class Program
     {
