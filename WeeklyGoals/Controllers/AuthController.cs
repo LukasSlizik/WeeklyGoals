@@ -92,7 +92,7 @@ namespace WeeklyGoals.Controllers
         [Route("registerexternal")]
         public async Task<IActionResult> RegisterExternal(string authprovider)
         {
-            var authResult = await HttpContext.AuthenticateAsync("TempCookie");
+            var authResult = await HttpContext.AuthenticateAsync();
             if (!authResult.Succeeded)
             {
                 return RedirectToAction("Index", "Home");
@@ -116,7 +116,7 @@ namespace WeeklyGoals.Controllers
         [HttpPost]
         public async Task<IActionResult> RegisterExternal(string id, RegisterExternalModel model)
         {
-            var authResult = await HttpContext.AuthenticateAsync("TempCookie");
+            var authResult = await HttpContext.AuthenticateAsync();
             if (!authResult.Succeeded)
             {
                 return RedirectToAction("Index", "Home");
@@ -134,7 +134,7 @@ namespace WeeklyGoals.Controllers
 
         private async Task<IActionResult> SignInExternal(User user)
         {
-            await HttpContext.SignOutAsync("TempCookie");
+            await HttpContext.SignOutAsync();
             return await SignInUser(user);
         }
         private async Task<IActionResult> SignInUser(User user)
