@@ -30,8 +30,8 @@ namespace WeeklyGoals
                 options.AccessDeniedPath = "/auth/accessdenied";
             }).AddGoogle(options =>
             {
-                options.ClientId = "";
-                options.ClientSecret = "";
+                options.ClientId = "832375877279-st6jh8dmgma8dc39v0g8es85revl6que.apps.googleusercontent.com";
+                options.ClientSecret = "lCL8Tfsu0MzWTdhZNniDJY09";
             });
         }
 
@@ -48,7 +48,7 @@ namespace WeeklyGoals
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller}/{action=Index}/{id?}");
+                    template: "{controller=home}/{action=index}/{id?}");
             });
         }
     }

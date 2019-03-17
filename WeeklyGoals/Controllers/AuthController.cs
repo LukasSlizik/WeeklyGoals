@@ -85,11 +85,11 @@ namespace WeeklyGoals.Controllers
         [Route("loginexternal/{id}")]
         public Task LogInExternal(string id)
         {
-            //return HttpContext.ChallengeAsync(id, new AuthenticationProperties { RedirectUri = "/userinfo" });
             return HttpContext.ChallengeAsync(id, new AuthenticationProperties { RedirectUri = "/auth/registerexternal" });
         }
 
         [Route("registerexternal")]
+        [HttpGet]
         public async Task<IActionResult> RegisterExternal(string authprovider)
         {
             var authResult = await HttpContext.AuthenticateAsync();
@@ -111,7 +111,7 @@ namespace WeeklyGoals.Controllers
             });
         }
 
-        [Route("registerexternal/{id}")]
+        [Route("registerexternal/{id?}")]
         [ValidateAntiForgeryToken]
         [HttpPost]
         public async Task<IActionResult> RegisterExternal(string id, RegisterExternalModel model)
@@ -150,7 +150,7 @@ namespace WeeklyGoals.Controllers
 
             await HttpContext.SignInAsync(principal);
 
-            return RedirectToAction("UserInformation", "Home");
+            return RedirectToAction("index", "home");
         }
     }
 }

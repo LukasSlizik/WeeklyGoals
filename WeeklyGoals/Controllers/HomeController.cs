@@ -3,12 +3,8 @@ using WeeklyGoals.Models;
 using WeeklyGoals.ViewModels;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.OpenIdConnect;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
 
@@ -44,6 +40,14 @@ namespace WeeklyGoals.Controllers
         public IActionResult Index()
         {
             return Ok("Hello from Index");
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        [Route("userdata")]
+        public IActionResult UserData()
+        {
+            return Ok("userdata");
         }
 
         // returns all progress records for the specified week
