@@ -1,76 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication;
+﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 using WeeklyGoals.Models;
-using WeeklyGoals.Services;
 
 namespace WeeklyGoals.Controllers
 {
     [Route("auth")]
     public class AuthController : Controller
     {
-        private readonly IUserService userService;
-
-        public AuthController(IUserService userService)
-        {
-            this.userService = userService;
-        }
-
         [Route("login")]
         public IActionResult LogIn()
         {
             return View(new LogInModel());
         }
 
-        [Route("login")]
-        [ValidateAntiForgeryToken]
-        [HttpPost]
-        public async Task<IActionResult> LogIn(LogInModel model)
+        [Route("login/{id}")]
+        public Task LogIn(string id)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
-            var user = await userService.Authenticate(model.Email, model.Password);
-            if (user == null)
-            {
-                ModelState.AddModelError("InvalidCredentials", "Could not validate your credentials");
-                return View(model);
-            }
-
-            return await SignInUser(user);
+            return HttpContext.ChallengeAsync(id, new AuthenticationProperties { RedirectUri = "/auth/signin" });
         }
 
-        [Route("register")]
-        public IActionResult Register()
+        [Route("signin")]
+        public async Task<IActionResult> SignIn()
         {
-            return View();
-        }
+            var authResult = await HttpContext.AuthenticateAsync();
 
-        [Route("register")]
-        [ValidateAntiForgeryToken]
-        [HttpPost]
-        public async Task<IActionResult> Register(RegisterModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
+            if (authResult.Succeeded)
+                await HttpContext.SignInAsync(authResult.Principal);
 
-            var user = await userService.Add(model.Name, model.Email, model.Password);
-
-            return await SignInUser(user);
-        }
-
-        [Route("accessdenied")]
-        public IActionResult AccessDenied()
-        {
-            return View();
+            return RedirectToAction("Index", "Home");
         }
 
         [Route("logout")]
@@ -80,77 +38,6 @@ namespace WeeklyGoals.Controllers
         {
             await HttpContext.SignOutAsync();
             return RedirectToAction("Index", "Home");
-        }
-
-        [Route("loginexternal/{id}")]
-        public Task LogInExternal(string id)
-        {
-            return HttpContext.ChallengeAsync(id, new AuthenticationProperties { RedirectUri = "/auth/registerexternal" });
-        }
-
-        [Route("registerexternal")]
-        [HttpGet]
-        public async Task<IActionResult> RegisterExternal(string authprovider)
-        {
-            var authResult = await HttpContext.AuthenticateAsync();
-            if (!authResult.Succeeded)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-
-            var user = await userService.AuthenticateExternal(authResult.Principal.FindFirstValue(ClaimTypes.NameIdentifier));
-            if (user != null)
-            {
-                return await SignInExternal(user);
-            }
-
-            return View(new RegisterExternalModel
-            {
-                Name = authResult.Principal.FindFirstValue(ClaimTypes.Name),
-                Email = authResult.Principal.FindFirstValue(ClaimTypes.Email)
-            });
-        }
-
-        [Route("registerexternal/{id?}")]
-        [ValidateAntiForgeryToken]
-        [HttpPost]
-        public async Task<IActionResult> RegisterExternal(string id, RegisterExternalModel model)
-        {
-            var authResult = await HttpContext.AuthenticateAsync();
-            if (!authResult.Succeeded)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
-            var user = await userService.AddExternal(authResult.Principal.FindFirstValue(ClaimTypes.NameIdentifier), model.Name, model.Email);
-
-            return await SignInExternal(user);
-        }
-
-        private async Task<IActionResult> SignInExternal(User user)
-        {
-            await HttpContext.SignOutAsync();
-            return await SignInUser(user);
-        }
-        private async Task<IActionResult> SignInUser(User user)
-        {
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.NameIdentifier, user.Email),
-                new Claim(ClaimTypes.Name, user.Username),
-                new Claim(ClaimTypes.Email, user.Email),
-            };
-            var identity = new ClaimsIdentity(claims);
-            var principal = new ClaimsPrincipal(identity);
-
-            await HttpContext.SignInAsync(principal);
-
-            return RedirectToAction("index", "home");
         }
     }
 }

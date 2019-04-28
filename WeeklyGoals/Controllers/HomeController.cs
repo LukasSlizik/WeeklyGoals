@@ -7,10 +7,12 @@ using System;
 using Microsoft.AspNetCore.Authorization;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
+using System.Security.Claims;
 
 namespace WeeklyGoals.Controllers
 {
     [Authorize]
+    [Route("Home")]
     public class HomeController : Controller
     {
         private GoalsContext _ctx;
@@ -37,9 +39,13 @@ namespace WeeklyGoals.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
+        [Route("Index")]
         public IActionResult Index()
         {
-            return Ok("Hello from Index");
+            var name = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            return Ok($"Hello from Index: {name}");
         }
 
         [HttpGet]
