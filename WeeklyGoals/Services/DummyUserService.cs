@@ -31,17 +31,6 @@ namespace WeeklyGoals.Services
             PersistData();
             return Task.FromResult(user);
         }
-        public Task<User> Authenticate(string name, string password)
-        {
-            if (_users.ContainsKey(name.ToLower()))
-            {
-                if (_users[name.ToLower()].Password == HashString(password))
-                {
-                    return Task.FromResult(_users[name.ToLower()].User);
-                }
-            }
-            return null;
-        }
 
         public Task<User> AddExternal(string id, string name, string email)
         {
