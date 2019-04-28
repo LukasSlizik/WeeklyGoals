@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using WeeklyGoals.Models;
 
 namespace WeeklyGoals.Services
 {

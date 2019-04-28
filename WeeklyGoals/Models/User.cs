@@ -1,4 +1,4 @@
-﻿namespace WeeklyGoals.Services
+﻿namespace WeeklyGoals.Models
 {
     public class User
     {
@@ -8,7 +8,8 @@
             Email = email;
         }
 
-        public string Username { get; }
-        public string Email { get; }
+        public int Id { get; set; }
+        public string Username { get; set; }
+        public string Email { get; set; }
     }
 }

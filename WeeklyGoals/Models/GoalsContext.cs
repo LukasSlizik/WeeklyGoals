@@ -10,5 +10,6 @@ namespace WeeklyGoals.Models
 
         public DbSet<Goal> Goals { get; set; }
         public DbSet<Progress> Progress { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }
