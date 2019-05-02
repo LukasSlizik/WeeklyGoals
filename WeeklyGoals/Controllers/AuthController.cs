@@ -33,31 +33,20 @@ namespace WeeklyGoals.Controllers
         public async Task<IActionResult> SignIn()
         {
             var authResult = await HttpContext.AuthenticateAsync();
-
+            
             if (authResult.Succeeded)
             {
                 var externalId = authResult.Principal.FindFirstValue(ClaimTypes.NameIdentifier);
-                var user = await _userSvc.AuthenticateExternalUser(externalId);
 
-                if (user == null)
+                if (!await _userSvc.IsExternalUserRegistered(externalId))
                 {
                     var username = authResult.Principal.FindFirstValue(ClaimTypes.Name);
                     var email = authResult.Principal.FindFirstValue(ClaimTypes.Email);
 
-                    user = await _userSvc.RegisterExternalUser(externalId, username, email);
+                    await _userSvc.RegisterExternalUser(externalId, username, email);
                 }
-
-                var claims = new[]
-                {
-                    new Claim(ClaimTypes.Email, user.Email),
-                    new Claim(ClaimTypes.Name, user.Username)
-                };
-                var identity = new ClaimsIdentity(claims);
-                var principal = new ClaimsPrincipal(identity);
-
-                await HttpContext.SignInAsync(principal);
+                await HttpContext.SignInAsync(authResult.Principal);
             }
-
             return RedirectToAction("Index", "Home");
         }
 

@@ -22,10 +22,10 @@ namespace WeeklyGoals.Services
             return user.Entity;
         }
 
-        public async Task<User> AuthenticateExternalUser(string externalId)
+        public async Task<bool> IsExternalUserRegistered(string externalId)
         {
             var user = await _goalsContext.Users.SingleOrDefaultAsync(u => u.ExternalId == externalId);
-            return user;    // null == user is not yet registered
+            return user != null;
         }
     }
 }
