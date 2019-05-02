@@ -12,7 +12,7 @@ using System.Security.Claims;
 namespace WeeklyGoals.Controllers
 {
     [Authorize]
-    [Route("Home")]
+    [Route("home")]
     public class HomeController : Controller
     {
         private GoalsContext _ctx;
@@ -40,12 +40,10 @@ namespace WeeklyGoals.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        [Route("Index")]
+        [Route("index")]
         public IActionResult Index()
         {
-            var name = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            return Ok($"Hello from Index: {name}");
+            return View();
         }
 
         [HttpGet]

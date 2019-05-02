@@ -50,10 +50,9 @@ namespace WeeklyGoals.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        [Route("logout")]
-        [ValidateAntiForgeryToken]
-        [HttpPost]
-        public async Task<IActionResult> LogOut()
+        [Route("signout")]
+        [HttpGet]
+        public async Task<IActionResult> SignOut()
         {
             await HttpContext.SignOutAsync();
             return RedirectToAction("Index", "Home");

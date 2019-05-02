@@ -8,10 +8,15 @@
     <link href="~/styles/css/Site.css" rel="stylesheet" />
 </head>
 <body>
-    <div class="container">
-
-        @RenderBody()
-
+    <div class="header">
+        @Html.ActionLink("sign in", "LogIn", "Auth")
+        @Html.ActionLink("sign out", "SignOut", "Auth")
     </div>
+
+<div class="container">
+
+    @RenderBody()
+
+</div>
 </body>
 </html>
