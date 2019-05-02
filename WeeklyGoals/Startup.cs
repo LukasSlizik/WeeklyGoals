@@ -18,20 +18,20 @@ namespace WeeklyGoals
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddDbContext<GoalsContext>(options => options.UseSqlServer(Configuration.GetConnectionString("GoalsContext")));
+            services.AddDbContext<GoalsContext>(options => options.UseSqlServer(Configuration.GetConnectionString("GoalsContext")), ServiceLifetime.Singleton);
             services.AddSingleton<IUserService, DummyUserService>();
 
             services.AddAuthentication(options =>
-                {
-                    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                }).AddCookie(options =>
+            {
+                options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            }).AddCookie(options =>
             {
                 options.LoginPath = "/auth/login";
                 options.AccessDeniedPath = "/auth/accessdenied";
             }).AddGoogle(options =>
             {
                 options.ClientId = "832375877279-st6jh8dmgma8dc39v0g8es85revl6que.apps.googleusercontent.com";
-                options.ClientSecret = "***";
+                options.ClientSecret = "";
             });
         }
 

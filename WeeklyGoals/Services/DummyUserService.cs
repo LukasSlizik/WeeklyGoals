@@ -14,12 +14,12 @@ namespace WeeklyGoals.Services
     {
         private IDictionary<string, (User User, string Password)> _users = new Dictionary<string, (User User, string Password)>();
         private IDictionary<string, User> _externalUsers = new Dictionary<string, User>();
-        private readonly GoalsContext _dbContext;
+        private readonly GoalsContext _goalsContext;
 
 
-        public DummyUserService(GoalsContext dbContext)
+        public DummyUserService(GoalsContext goalsContext)
         {
-            _dbContext = dbContext;
+            _goalsContext = goalsContext;
             InitializeStorage();
         }
 

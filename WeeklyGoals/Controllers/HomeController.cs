@@ -49,7 +49,6 @@ namespace WeeklyGoals.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
         [Route("userdata")]
         public IActionResult UserData()
         {
