@@ -5,8 +5,7 @@ namespace WeeklyGoals.Services
 {
     public interface IUserService
     {
-        Task<User> Add(string name, string email, string password);
-        Task<User> AuthenticateExternal(string id);
-        Task<User> AddExternal(string id, string name, string email);
+        Task<User> AuthenticateExternalUser(string externalId);
+        Task<User> RegisterExternalUser(string externalId, string username, string email);
     }
 }

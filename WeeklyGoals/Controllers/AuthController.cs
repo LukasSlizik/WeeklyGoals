@@ -36,17 +36,26 @@ namespace WeeklyGoals.Controllers
 
             if (authResult.Succeeded)
             {
-                // has the user already an registered account ?
-                // if not -> register
-                var id = authResult.Principal.FindFirstValue(ClaimTypes.NameIdentifier);
-                var username = authResult.Principal.FindFirstValue(ClaimTypes.Name);
-                var email = authResult.Principal.FindFirstValue(ClaimTypes.Email);
-                var user = await _userSvc.AuthenticateExternal(id);
+                var externalId = authResult.Principal.FindFirstValue(ClaimTypes.NameIdentifier);
+                var user = await _userSvc.AuthenticateExternalUser(externalId);
 
                 if (user == null)
-                    await _userSvc.AddExternal(id, username, email);
+                {
+                    var username = authResult.Principal.FindFirstValue(ClaimTypes.Name);
+                    var email = authResult.Principal.FindFirstValue(ClaimTypes.Email);
 
-                await HttpContext.SignInAsync(authResult.Principal);
+                    user = await _userSvc.RegisterExternalUser(externalId, username, email);
+                }
+
+                var claims = new[]
+                {
+                    new Claim(ClaimTypes.Email, user.Email),
+                    new Claim(ClaimTypes.Name, user.Username)
+                };
+                var identity = new ClaimsIdentity(claims);
+                var principal = new ClaimsPrincipal(identity);
+
+                await HttpContext.SignInAsync(principal);
             }
 
             return RedirectToAction("Index", "Home");
