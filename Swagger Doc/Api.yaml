@@ -13,29 +13,73 @@ info:
 paths:
   /activities:
     get:
-      produces:
-      - application/json
       responses:
         200:
           schema:
             type: array
             items:
               $ref: '#/definitions/Activity'
+  /activities/{activityId}:
+    get:
+      parameters:
+      - in: query
+        name: activityId
+        required: true
+        type: string
+        format: guid
+      responses:
+        200:
+          schema:
+            $ref: '#/definitions/Activity'
+  /activities/{activityId}/goals:
+    get:
+      parameters:
+      - in: query
+        name: activityId
+        required: true
+        type: string
+        format: guid
+      responses:
+        200:
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Goal'
+  /activities/{activityId}/goals/{goalId}:
+      get:
+        parameters:
+        - in: query
+          name: activityId
+          required: true
+          type: string
+          format: guid
+        - in: query
+          name: goalId
+          required: true
+          type: string
+          format: guid
+        responses:
+          200:
+            schema:
+              $ref: '#/definitions/Goal'
 
-  /activities/{id}:
+  /activities/{id}/goals/{goalId}/achievments:
     get:
-    post:
-    put:
-    delete:
-  
-  /goals:
-    get:
+      parameters:
+        - in: query
+          name: activityId
+          required: true
+          type: string
+          format: guid
+        - in: query
+          name: goalId
+          required: true
+          type: string
+          format: guid
 
-  /goal/{id}:
-    get:
-    post:
-    put:
-    delete:
+      responses:
+
+  /activities/{id}/goals/{goalId}/achievments/{achievmentId}:
 
 definitions:
   Activity:
@@ -65,6 +109,31 @@ definitions:
       multiplicator:
         type: number
         format: float
+  TimePeriod:
+    type: object
+    properties:
+      id:
+        type: string
+        format: guid
+      from:
+        type: string
+        format: date
+      to:
+        type: string
+        format: date
+  Achievment:
+    type: object
+    properties:
+      id:
+        type: string
+        format: guid
+      points:
+        type: number
+        format: float
+      timePeriod:
+        type: object
+        $ref: '#/definitions/myElement'
+
 
 # Added by API Auto Mocking Plugin
 host: todo
