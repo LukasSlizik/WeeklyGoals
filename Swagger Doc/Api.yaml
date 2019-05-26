@@ -1,0 +1,73 @@
+swagger: '2.0'
+info:
+  description: Personal Goals
+  version: 0.9.1
+  title: Personal Goals
+  contact:
+    email: lukas.slizik@gmail.com
+
+  license:
+    name: todo
+    url: todo
+
+paths:
+  /activities:
+    get:
+      produces:
+      - application/json
+      responses:
+        200:
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Activity'
+
+  /activities/{id}:
+    get:
+    post:
+    put:
+    delete:
+  
+  /goals:
+    get:
+
+  /goal/{id}:
+    get:
+    post:
+    put:
+    delete:
+
+definitions:
+  Activity:
+    type: object
+    properties:
+      id:
+        type: string
+        format: guid
+      name:
+        type: string
+      description:
+        type: string
+  Goal:
+    type: object
+    properties:
+      id:
+        type: string
+        format: guid
+      target:
+        type: number
+        format: int32
+      step:
+        type: number
+        format: int32
+      unit:
+        type: string
+      multiplicator:
+        type: number
+        format: float
+
+# Added by API Auto Mocking Plugin
+host: todo
+basePath: todo
+schemes:
+ - http
