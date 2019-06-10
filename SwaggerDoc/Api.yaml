@@ -1,18 +1,15 @@
 openapi: 3.0.0
 info:
   description: Personal Goals
-  version: '1.0'
+  version: "1"
   title: Personal Goals
   contact:
     email: lukas.slizik@gmail.com
 
-  license:
-    name: todo
-    url: todo
-
 paths:
   /activities:
     get:
+      operationId: GetActivities
       responses:
         200:
           description: A JSON array of Activities
@@ -23,6 +20,7 @@ paths:
                 items: 
                   $ref: '#/components/schemas/Activity'
     post:
+      operationId: CreateActivity
       requestBody:
         required: true
         content:
@@ -35,6 +33,7 @@ paths:
 
   /activities/{activityId}:
     get:
+      operationId: GetActivityById
       parameters:
       - in: path
         name: activityId
@@ -49,7 +48,26 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Activity'
+    put:
+      operationId: UpdateActivity
+      parameters:
+      - in: path
+        name: activityId
+        required: true
+        schema:
+          type: string
+          format: guid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Activity'
+      responses:
+        204: 
+          description: 'no content'
     delete:
+      operationId: DeleteActivity
       parameters:
       - in: path
         name: activityId
@@ -63,6 +81,7 @@ paths:
 
   /activities/{activityId}/goals:
     get:
+      operationId: GetGoalsForActivity
       parameters:
       - in: path
         name: activityId
@@ -80,6 +99,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/Goal'
     post:
+      operationId: CreateGoal
       parameters:
       - in: path
         name: activityId
@@ -99,6 +119,7 @@ paths:
 
   /activities/{activityId}/goals/{goalId}:
     get:
+      operationId: GetGoalById
       parameters:
       - in: path
         name: activityId
@@ -119,7 +140,33 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Goal'
+    put:
+      operationId: UpdateGoal
+      parameters:
+      - in: path
+        name: activityId
+        required: true
+        schema:
+          type: string
+          format: guid
+      - in: path
+        name: goalId
+        required: true
+        schema:
+          type: string
+          format: guid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Goal'
+      responses:
+        204:
+          description: 'no content'
+
     delete:
+      operationId: DeleteGoalById
       parameters:
       - in: path
         name: activityId
@@ -137,9 +184,9 @@ paths:
         204:
           description: Goal Deleted
       
-
   /activities/{activityId}/goals/{goalId}/achievements:
     get:
+      operationId: GetAllAchievementsForGoal
       parameters:
         - in: path
           name: activityId
@@ -161,6 +208,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Achievement'
     post:
+      operationId: CreateAchievement
       parameters:
       - in: path
         name: activityId
@@ -187,6 +235,7 @@ paths:
 
   /activities/{activityId}/goals/{goalId}/achievments/{achievmentId}:
     get:
+      operationId: GetAchievementById
       parameters:
         - in: path
           name: activityId
@@ -213,7 +262,41 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Achievement'
+    put:
+      operationId: UpdateAchievement
+      parameters:
+        - in: path
+          name: activityId
+          required: true
+          schema:
+            type: string
+            format: guid
+        - in: path
+          name: goalId
+          required: true
+          schema:
+            type: string
+            format: guid
+        - in: path
+          name: achievmentId
+          required: true
+          schema:
+            type: string
+            format: guid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Achievement'
+      responses:
+        200:
+          description: A JSON representation of an Achievement belonging to a Goal
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Achievement'
     delete:
+      operationId: DeleteAchievementById
       parameters:
       - in: path
         name: activityId
@@ -247,10 +330,8 @@ components:
           format: guid
         target:
           type: number
-          format: int32
         step:
           type: number
-          format: int32
         unit:
           type: string
         multiplicator:
@@ -289,3 +370,7 @@ components:
         to:
           type: string
           format: date
+# Added by API Auto Mocking Plugin
+servers:
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/LukasSlizik/PersonalGoals/1
