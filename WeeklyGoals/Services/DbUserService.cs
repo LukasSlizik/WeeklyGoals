@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using WeeklyGoals.Models;
+using WeeklyGoals.Models.Auth;
 
 namespace WeeklyGoals.Services
 {

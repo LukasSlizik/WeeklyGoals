@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace WeeklyGoals.Models.NewModels
+namespace WeeklyGoals.Models.Activity
 {
     public class Goal
     {

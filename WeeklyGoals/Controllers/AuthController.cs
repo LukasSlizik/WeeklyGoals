@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using WeeklyGoals.Models;
+using WeeklyGoals.Models.Auth;
 using WeeklyGoals.Services;
 
 namespace WeeklyGoals.Controllers

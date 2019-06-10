@@ -4,12 +4,20 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using WeeklyGoals.Models.NewModels;
+using WeeklyGoals.Services;
 
 namespace WeeklyGoals.Controllers
 {
     [Route("PersonalGoals/Api/v1")]
     public class ActivityController : Controller
     {
+        private IActivityRepository _repository;
+
+        public ActivityController(IActivityRepository repository)
+        {
+            _repository = repository;
+        }
+
         [HttpGet, Route("activities", Name = "GetActivities")]
         public async Task<ICollection<Activity>> GetActivities()
         {

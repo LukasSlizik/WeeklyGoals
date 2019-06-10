@@ -1,4 +1,4 @@
-﻿namespace WeeklyGoals.Models
+﻿namespace WeeklyGoals.Models.Auth
 {
     public class User
     {
