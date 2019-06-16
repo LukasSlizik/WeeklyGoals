@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using WeeklyGoals.Models.NewModels;
-using WeeklyGoals.Services;
+using WeeklyGoals.Main.Api.Models;
+using WeeklyGoals.Main.Api.Services;
 
-namespace WeeklyGoals.Controllers
+namespace WeeklyGoals.Main.Api.Controllers
 {
-    [Route("PersonalGoals/Api/v1")]
+    [Route("PersonalGoals/Api")]
     public class ActivityController : Controller
     {
-        private IActivityRepository _repository;
+        private readonly IActivityRepository _repository;
 
         public ActivityController(IActivityRepository repository)
         {
@@ -21,7 +21,7 @@ namespace WeeklyGoals.Controllers
         [HttpGet, Route("activities", Name = "GetActivities")]
         public async Task<ICollection<Activity>> GetActivities()
         {
-            return new Collection<Activity>();
+            return _repository.GetActivities();
         }
 
         [HttpPost, Route("activities", Name = "CreateActivity")]

@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace WeeklyGoals.Models.Activity
+namespace WeeklyGoals.Main.Api.Models
 {
     public class TimePeriod
     {

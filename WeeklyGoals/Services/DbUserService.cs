@@ -7,26 +7,34 @@ namespace WeeklyGoals.Services
 {
     public class DbUserService : IUserService
     {
-        private readonly GoalsContext _goalsContext;
+        //private readonly GoalsContext _goalsContext;
 
+        //public DbUserService(GoalsContext goalsContext)
+        //{
+        //    _goalsContext = goalsContext;
+        //}
 
-        public DbUserService(GoalsContext goalsContext)
+        //public async Task<User> RegisterExternalUser(string externalId, string username, string email)
+        //{
+        //    var user = await _goalsContext.Users.AddAsync(new User(externalId, username, email));
+        //    _goalsContext.SaveChanges();
+
+        //    return user.Entity;
+        //}
+
+        //public async Task<bool> IsExternalUserRegistered(string externalId)
+        //{
+        //    var user = await _goalsContext.Users.SingleOrDefaultAsync(u => u.ExternalId == externalId);
+        //    return user != null;
+        //}
+        public Task<bool> IsExternalUserRegistered(string externalId)
         {
-            _goalsContext = goalsContext;
+            throw new System.NotImplementedException();
         }
 
-        public async Task<User> RegisterExternalUser(string externalId, string username, string email)
+        public Task<User> RegisterExternalUser(string externalId, string username, string email)
         {
-            var user = await _goalsContext.Users.AddAsync(new User(externalId, username, email));
-            _goalsContext.SaveChanges();
-
-            return user.Entity;
-        }
-
-        public async Task<bool> IsExternalUserRegistered(string externalId)
-        {
-            var user = await _goalsContext.Users.SingleOrDefaultAsync(u => u.ExternalId == externalId);
-            return user != null;
+            throw new System.NotImplementedException();
         }
     }
 }

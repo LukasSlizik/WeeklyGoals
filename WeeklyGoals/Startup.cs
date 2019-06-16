@@ -18,7 +18,7 @@ namespace WeeklyGoals
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddDbContext<GoalsContext>(options => options.UseSqlServer(Configuration.GetConnectionString("GoalsContext")));
+            //services.AddDbContext<GoalsContext>(options => options.UseSqlServer(Configuration.GetConnectionString("GoalsContext")));
             services.AddScoped<IUserService, DbUserService>();
 
             services.AddAuthentication(options =>
