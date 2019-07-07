@@ -1,26 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using WeeklyGoals.Main.Api.Models;
 using WeeklyGoals.Main.Api.Services;
 
 namespace WeeklyGoals.Main.Api
 {
     public class Startup
     {
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
-        public void ConfigureServices(IServiceCollection services)
-        {
-            services.AddMvc();
-            services.AddScoped<IActivityRepository, InMemoryActivityRepository>();
-        }
+        public Startup(IConfiguration configuration) => Configuration = configuration;
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        public IConfiguration Configuration { get; }
+
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
@@ -35,6 +28,13 @@ namespace WeeklyGoals.Main.Api
                     name: "default",
                     template: "{controller}/{action}/{id?}");
             });
+        }
+
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddMvc();
+            services.AddDbContext<ActivitiesContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ActivitiesContext")));
+            services.AddScoped<IActivityRepository, DbActivityRepository>();
         }
     }
 }

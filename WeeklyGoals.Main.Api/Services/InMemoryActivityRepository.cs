@@ -26,5 +26,10 @@ namespace WeeklyGoals.Main.Api.Services
         {
             return _activities;
         }
+
+        public void CreateActivity(Activity activity)
+        {
+            _activities.Add(activity);
+        }
     }
 }
