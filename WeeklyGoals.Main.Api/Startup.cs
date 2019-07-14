@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System.Net;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -21,6 +24,18 @@ namespace WeeklyGoals.Main.Api
                 app.UseDeveloperExceptionPage();
             }
 
+            // health check
+            app.Use(async (context, next) =>
+            {
+                if (context.Request.Path.StartsWithSegments("/healthcheck"))
+                {
+                    context.Response.StatusCode = (int)HttpStatusCode.OK;
+                    await context.Response.WriteAsync("Succeeded");
+                }
+                else
+                    await next.Invoke();
+            });
+
             app.UseMvc();
             app.UseMvc(routes =>
             {
@@ -33,7 +48,7 @@ namespace WeeklyGoals.Main.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddDbContext<ActivitiesContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ActivitiesContext")));
+            services.AddDbContext<ActivitiesContext>(options => options.UseNpgsql(Configuration.GetConnectionString("ActivitiesContext")));
             services.AddScoped<IActivityRepository, DbActivityRepository>();
         }
     }

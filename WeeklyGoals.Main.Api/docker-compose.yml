@@ -1,0 +1,26 @@
+﻿version: '3.7'
+ 
+services:
+  personal_goals: 
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: personal_goals
+    depends_on:
+      - db
+    ports:
+      - "10080:80"
+    container_name: personal_goals
+  
+  db:
+    image: postgres:11
+    environment: 
+      - POSTGRES_PASSWORD=Passw0rd123
+    ports:
+      - "5430:5432"
+    volumes:
+      - pgs_dbdata:/var/lib/postgresql/data
+    container_name: personal_goals_db
+
+volumes:
+  pgs_dbdata: {}
