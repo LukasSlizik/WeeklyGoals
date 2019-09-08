@@ -18,21 +18,3 @@ sudo chkconfig docker on
 wget https://aws-codedeploy-eu-central-1.s3.eu-central-1.amazonaws.com/latest/install
 chmod +x ./install
 sudo ./install auto
-
-# sudo yum remove docker docker-engine docker.io containerd runc
-# sudo yum install -y -q \
-#     apt-transport-https \
-#     ca-certificates \
-#     curl \
-#     gnupg-agent \
-#     software-properties-common
-
-# curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-
-# sudo add-apt-repository \
-#    "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-#    $(lsb_release -cs) \
-#    stable"
-# sudo yum update
-
-# sudo yum install docker-ce docker-ce-cli containerd.io -yq
