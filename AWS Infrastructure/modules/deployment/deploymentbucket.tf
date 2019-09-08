@@ -3,6 +3,10 @@ resource "aws_s3_bucket" "deployment-bucket" {
   acl           = "private"
   force_destroy = "true"
 
+  versioning {
+    enabled = true
+  }
+
   lifecycle_rule {
     id      = "delete old files"
     enabled = "true"
@@ -11,6 +15,6 @@ resource "aws_s3_bucket" "deployment-bucket" {
     noncurrent_version_expiration {
       days = 7
     }
-    
+
   }
 }
