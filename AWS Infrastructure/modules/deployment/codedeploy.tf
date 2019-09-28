@@ -296,7 +296,7 @@ resource "aws_codedeploy_deployment_group" "deployment_group" {
   app_name              = "${aws_codedeploy_app.codedeploy_app.name}"
   deployment_group_name = "server-deployment-group"
   service_role_arn      = "${aws_iam_role.codedeploy_service.arn}"
-  #   deployment_config_name = "${aws_codedeploy_deployment_config.config.id}"
+  deployment_config_name = "CodeDeployDefault.AllAtOnce"
 
   ec2_tag_filter {
     key   = "DeployGroup"
